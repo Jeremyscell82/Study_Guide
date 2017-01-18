@@ -1,0 +1,18 @@
+<resources>
+    <!-- APP SPECIFIC -->
+    <string name="app_name">Study Guide</string>
+    <string-array name="version">DEV_1</string-array>
+
+    <!-- MENU ITEMS -->
+    <string name="menu_add">Add</string>
+
+    <!-- NAV DRAWER -->
+    <string-array name="nav_drawer_items">
+        <item>Home</item>
+        <item>Flash Cards</item>
+        <item>Great Sites</item>
+        <item>Definitions</item>
+        <item>About</item>
+    </string-array>
+
+</resources>
