@@ -34,7 +34,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="befc6afa8cde05bd6721473b649b83d1aae6b098">
+        sha1="3764b1dbf591a49d1f297015c3700894564e02f0">
         <dex dex="/Users/JeremysMac/GITHUB/Study_Guide/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_ec68e781b47bc50072f2582421b5856d06a078ba/classes.dex" />
     </item>
     <item
@@ -45,6 +45,15 @@
         revision="25.0.1"
         sha1="64cb6b229a8bdfd907bc8dd46839a0053e4c018d">
         <dex dex="/Users/JeremysMac/GITHUB/Study_Guide/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-25.1.0_bc2b026b34eb89428ce6541abdf3bf5fcf2e514d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/JeremysMac/GITHUB/Study_Guide/app/build/intermediates/exploded-aar/me.zhanghai.android.materialprogressbar/library/1.3.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="a846ddbf5bf88dee5f89d4dffe22c864f576d9b0">
+        <dex dex="/Users/JeremysMac/GITHUB/Study_Guide/app/build/intermediates/transforms/dex/debug/folders/1000/10/me.zhanghai.android.materialprogressbar-library-1.3.0_724543beec3fa3a6e6f0ad5be57578fb53648b2a/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -102,11 +111,20 @@
     </item>
     <item
         is-multidex="true"
+        jar="/Users/JeremysMac/GITHUB/Study_Guide/app/build/intermediates/exploded-aar/com.afollestad.material-dialogs/core/0.9.2.3/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="2539d6591fd240270dc5ff8b67701ad63ae42379">
+        <dex dex="/Users/JeremysMac/GITHUB/Study_Guide/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.afollestad.material-dialogs-core-0.9.2.3_1cd9d8a4900cf8fb0addf09bb53f26e0812ca377/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/Users/JeremysMac/GITHUB/Study_Guide/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="7963e36617f7aead643051f112babd8775ff9597">
+        sha1="8f5a173fa1ab75b851b2b3464be888b54430be80">
         <dex dex="/Users/JeremysMac/GITHUB/Study_Guide/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_51be65a11fcb61f847f98bbec2758e82440b3d49/classes.dex" />
     </item>
     <item
@@ -126,6 +144,15 @@
         revision="25.0.1"
         sha1="d38084015027549951cbaea5d5f6fb795cc81151">
         <dex dex="/Users/JeremysMac/GITHUB/Study_Guide/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-transition-25.1.0_5248d2442ca5955e2c003df5f8dff53afdd12407/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/JeremysMac/GITHUB/Study_Guide/app/build/intermediates/exploded-aar/com.android.support/support-v13/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="e006c9b6f0aaed9d8c7934b74039738390fe3468">
+        <dex dex="/Users/JeremysMac/GITHUB/Study_Guide/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v13-25.1.0_4987c48f45889761f69871748c528e8d4473ef0a/classes.dex" />
     </item>
     <item
         is-multidex="true"

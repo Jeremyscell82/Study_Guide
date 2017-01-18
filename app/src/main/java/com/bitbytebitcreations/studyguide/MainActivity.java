@@ -3,6 +3,7 @@ package com.bitbytebitcreations.studyguide;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import com.bitbytebitcreations.studyguide.Utils.Material_Drawer;
 
@@ -24,8 +25,6 @@ public class MainActivity extends AppCompatActivity {
         //SET UP NAV DRAWER
         new Material_Drawer().navDrawer(this, toolbar);
     }
-
-
 
 
 

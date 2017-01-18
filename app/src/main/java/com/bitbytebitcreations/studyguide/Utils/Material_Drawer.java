@@ -1,9 +1,7 @@
 package com.bitbytebitcreations.studyguide.Utils;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
@@ -51,7 +49,9 @@ public class Material_Drawer {
                         activityLauncher(position);
                         return false;
                     }
-                }).build();
+                })
+                .withSelectedItem(-1)
+                .build();
         return mDrawer;
     }
 
@@ -72,16 +72,8 @@ public class Material_Drawer {
                 break;
         }
         if (mIntent != null){
-            mDrawer.setSelectionAtPosition(0);
+            mDrawer.setSelectionAtPosition(-1);
             mActivity.startActivity(mIntent);
-//            Handler handler = new Handler();
-//            handler.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//
-//                }
-//            }, 400);
-
         }
 
     }

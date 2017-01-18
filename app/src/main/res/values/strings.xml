@@ -1,7 +1,10 @@
 <resources>
-    <!-- APP SPECIFIC -->
+    <!-- APP GENERIC -->
     <string name="app_name">Study Guide</string>
     <string-array name="version">DEV_1</string-array>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="add">ADD</string>
 
     <!-- MENU ITEMS -->
     <string name="menu_add">Add</string>
@@ -16,8 +19,15 @@
     </string-array>
 
 
-    <string-array name="test_list">
-        <item></item>
-    </string-array>
+    <!-- ===========================GREAT SITES=========================== -->
+
+    <!-- ADD DIALOGS -->
+    <string name="dialog_addcat_title">Create a new category</string>
+    <string name="dialog_addsite_title">Give the site a name</string>
+    <string name="dialog_addsite_title2">Now enter the URL/address</string>
+
+    <!-- TOAST MESSAGES -->
+    <string name="toast_invalid_url">The entered URL seems invalid, \nplease double check and try again</string>
+
 
 </resources>
