@@ -7,11 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.widget.ProgressBar;
 
 import com.bitbytebitcreations.studyguide.GreatSites.Fragments.Category_Fragment;
 import com.bitbytebitcreations.studyguide.GreatSites.Fragments.SitesList_Fragment;
+import com.bitbytebitcreations.studyguide.GreatSites.Fragments.WebView_Fragment;
 import com.bitbytebitcreations.studyguide.Utils.Material_Drawer;
 import com.bitbytebitcreations.studyguide.R;
+import com.mikepenz.materialdrawer.Drawer;
 
 /**
  * ACTIVITY 2, GREAT SITES
@@ -22,6 +25,12 @@ import com.bitbytebitcreations.studyguide.R;
 public class SitesActivity extends AppCompatActivity {
 
     private final String TAG = "SITES_ACTIVITY";
+    String cat = "Category";
+    String sites = "Sites";
+    String web = "Webview";
+    Toolbar toolbar;
+    Drawer drawer;
+
 
 
     @Override
@@ -30,20 +39,35 @@ public class SitesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //SET UP THE TOOLBAR
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");//REMOVE ACTIONBAR TITLE
-        toolbar.setTitle("Select Category");
+        setToolbarTitle("Welcome!!");
 
         //SET UP NAV DRAWER
-        new Material_Drawer().navDrawer(this, toolbar);
+        drawer = new Material_Drawer().navDrawer(this, toolbar);
 
         //LAUNCH FRAGMENT
-        fragController(0);
+        fragController(true, cat);
 
 
     }
 
+    /*SET TOOLBAR TITLE*/
+    public void setToolbarTitle(String title){
+        toolbar.setTitle(title);
+    }
+    public Drawer toggleBackArrow(boolean display){
+        if (display){
+            drawer.getActionBarDrawerToggle().setDrawerIndicatorEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            return drawer;
+        } else {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            drawer.getActionBarDrawerToggle().setDrawerIndicatorEnabled(true);
+            return null;
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -51,18 +75,33 @@ public class SitesActivity extends AppCompatActivity {
         return true;
     }
 
+
+
     //FRAGMENT CONTROLLER
-    private void fragController(int position){
+    public void fragController(boolean initLaunch, String fragName){
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-            switch (position){
-                case 0:
+            switch (fragName){
+                case "Category":
                     Category_Fragment catFrag = new Category_Fragment().newInstance();
-                    ft.replace(R.id.main_container, catFrag)
-                            .commit();
+                    if (initLaunch){
+                        ft.replace(R.id.main_container, catFrag)
+                                .commit();
+                    } else {
+                        ft.replace(R.id.main_container, catFrag)
+                                .addToBackStack("")
+                                .commit();
+                    }
                     break;
-                case 1:
+                case "Sites":
                     SitesList_Fragment siteFrag = new SitesList_Fragment().newInstance();
                     ft.replace(R.id.main_container, siteFrag)
+                            .addToBackStack("")
+                            .commit();
+                    break;
+                case "Webview":
+                    WebView_Fragment webFrag = new WebView_Fragment().newInstance();
+                    ft.replace(R.id.main_container, webFrag)
+                            .addToBackStack("")
                             .commit();
                     break;
             }
@@ -76,12 +115,12 @@ public class SitesActivity extends AppCompatActivity {
         switch (key){
             case 0: //CATEGORY
                 //LAUNCH SITES FRAGMENT
-
-                fragController(1);
+                fragController(false, sites);
                 break;
             case 1: //SITES
                 //LAUNCH WEBVIEW FRAGMENT
                 Log.i(TAG, "LAUNCH WEBVIEW....");
+                fragController(false, web);
                 break;
         }
     }

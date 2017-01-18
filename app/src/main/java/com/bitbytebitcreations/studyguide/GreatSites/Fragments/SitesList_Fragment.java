@@ -15,9 +15,11 @@ import android.webkit.URLUtil;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.bitbytebitcreations.studyguide.GreatSites.SitesActivity;
 import com.bitbytebitcreations.studyguide.R;
 import com.bitbytebitcreations.studyguide.Utils.Recycler_Adapter;
 import com.mikepenz.iconics.utils.Utils;
+import com.mikepenz.materialdrawer.Drawer;
 
 /**
  * FRAGMENT 1, SITES
@@ -40,6 +42,16 @@ public class SitesList_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recyclerview, container, false);
 
+        //SET UP TOOLBAR
+        SitesActivity activity = (SitesActivity) getActivity();
+        activity.setToolbarTitle("Sites");
+        activity.toggleBackArrow(true).setOnDrawerNavigationListener(new Drawer.OnDrawerNavigationListener() {
+            @Override
+            public boolean onNavigationClickListener(View clickedView) {
+                getFragmentManager().popBackStack();
+                return true;
+            }
+        });
 
         //SET UP RECYCLER VIEW
         RecyclerView myRecycler = (RecyclerView) view.findViewById(R.id.main_recyclerview);

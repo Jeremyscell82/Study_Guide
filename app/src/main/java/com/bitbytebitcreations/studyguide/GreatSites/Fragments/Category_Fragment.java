@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.bitbytebitcreations.studyguide.GreatSites.SitesActivity;
 import com.bitbytebitcreations.studyguide.R;
 import com.bitbytebitcreations.studyguide.Utils.Recycler_Adapter;
 
@@ -33,6 +34,10 @@ public class Category_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recyclerview, container, false);
 
+        //SET UP TOOLBAR
+        SitesActivity activity = (SitesActivity) getActivity();
+        activity.setToolbarTitle("Categories");
+        activity.toggleBackArrow(false); //THIS SHOULD NEVER REALLY BE NEEDED, BUT JUST IN CASE
 
         //SET UP RECYCLER VIEW
         RecyclerView myRecycler = (RecyclerView) view.findViewById(R.id.main_recyclerview);
