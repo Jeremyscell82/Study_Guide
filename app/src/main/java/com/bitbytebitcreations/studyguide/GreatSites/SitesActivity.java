@@ -1,13 +1,16 @@
 package com.bitbytebitcreations.studyguide.GreatSites;
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.bitbytebitcreations.studyguide.Material_Drawer;
+import com.bitbytebitcreations.studyguide.GreatSites.Fragments.Category_Fragment;
+import com.bitbytebitcreations.studyguide.Utils.Material_Drawer;
 import com.bitbytebitcreations.studyguide.R;
 
 /**
@@ -31,7 +34,26 @@ public class SitesActivity extends AppCompatActivity {
         //SET UP NAV DRAWER
         new Material_Drawer().navDrawer(this, toolbar);
 
+        //LAUNCH FRAGMENT
+        fragController(0);
+
+
     }
+
+    //FRAGMENT CONTROLLER
+    private void fragController(int position){
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+            switch (position){
+                case 0:
+                    Category_Fragment fragment = new Category_Fragment().newIntance();
+                    ft.replace(R.id.main_container, fragment)
+                            .commit();
+                    break;
+                case 1:
+                    break;
+            }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

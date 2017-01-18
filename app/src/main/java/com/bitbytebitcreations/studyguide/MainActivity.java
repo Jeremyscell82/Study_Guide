@@ -3,13 +3,8 @@ package com.bitbytebitcreations.studyguide;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 
-import com.mikepenz.materialdrawer.Drawer;
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.bitbytebitcreations.studyguide.Utils.Material_Drawer;
 
 public class MainActivity extends AppCompatActivity {
 

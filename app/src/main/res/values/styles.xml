@@ -19,5 +19,12 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <!-- CARDVIEW BODY -->
+    <style name="font_blk_lrg_caps">
+        <item name="android:textColor">@color/md_black_1000</item>
+        <item name="android:textSize">12pt</item>
+        <item name="android:fontFamily">sans-serif-smallcaps</item>
+    </style>
+
 
 </resources>
