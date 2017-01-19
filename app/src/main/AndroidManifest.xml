@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".GreatSites.SitesActivity"/>
+        <activity android:name=".Definitions.DefinitionsActivity"/>
     </application>
 
 </manifest>

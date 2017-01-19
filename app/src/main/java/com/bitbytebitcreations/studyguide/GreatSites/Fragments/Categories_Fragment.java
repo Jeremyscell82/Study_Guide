@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * ACTIVITY 2, SITES ACTIVITY
  * FRAGMENT 0, CATEGORY AKA HOME SCREEN FOR SITES ACTIVITY
  *
  * Created by JeremysMac on 1/17/17.

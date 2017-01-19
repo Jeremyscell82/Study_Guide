@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_margin"
+        >
+        <EditText
+            android:id="@+id/defition_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Definition name"
+            android:gravity="center"
+            style="@style/font_blk_lrg_caps"
+            android:layout_margin="@dimen/cardview_margin"/>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="200dp"
+        android:layout_margin="@dimen/activity_margin">
+
+        <EditText
+            android:id="@+id/definition_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Definition goes here"
+            style="@style/font_blk_lrg_caps"
+            android:layout_margin="@dimen/cardview_margin"/>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

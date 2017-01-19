@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bitbytebitcreations.studyguide.Definitions.DefinitionsActivity;
 import com.bitbytebitcreations.studyguide.GreatSites.SitesActivity;
 import com.bitbytebitcreations.studyguide.R;
 
@@ -97,6 +98,8 @@ public class Recycler_Adapter extends RecyclerView.Adapter<Recycler_Adapter.View
                     sites.recyclerOnClick(keyBits[1], name.getText().toString());
                     break;
                 case 3: //DEFINITIONS
+                    DefinitionsActivity definitions = (DefinitionsActivity) context;
+                    definitions.recyclerOnClick(keyBits[1], name.getText().toString());
                     break;
                 case 4: //ABOUT
                     break;

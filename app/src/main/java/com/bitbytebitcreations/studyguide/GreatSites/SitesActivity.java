@@ -79,6 +79,7 @@ public class SitesActivity extends AppCompatActivity {
     public void setToolbarTitle(String title){
         toolbar.setTitle(title);
     }
+
     public Drawer toggleBackArrow(boolean display){
         if (display){
             drawer.getActionBarDrawerToggle().setDrawerIndicatorEnabled(false);
@@ -91,6 +92,7 @@ public class SitesActivity extends AppCompatActivity {
         }
     }
 
+    /* SET UP MENU */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -106,8 +108,7 @@ public class SitesActivity extends AppCompatActivity {
             switch (fragName){
                 case "category":
                     Categories_Fragment catFrag = new Categories_Fragment().newInstance();
-                        ft.setCustomAnimations(R.animator.slide_in_bottom, R.animator.slide_out_left)
-                                .replace(R.id.main_container, catFrag)
+                        ft.replace(R.id.main_container, catFrag)
                                 .commit();
                     break;
                 case "sites":

@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.bitbytebitcreations.studyguide.Definitions.DefinitionsActivity;
 import com.bitbytebitcreations.studyguide.GreatSites.SitesActivity;
 import com.bitbytebitcreations.studyguide.MainActivity;
 import com.bitbytebitcreations.studyguide.R;
@@ -32,7 +33,7 @@ public class Material_Drawer {
         mActivity = activity;
         AccountHeader header = new AccountHeaderBuilder()
                 .withActivity(activity)
-                .withHeaderBackground(R.color.primary)
+                .withHeaderBackground(R.color.primary_dark)
                 .build();
 
         mDrawer = new DrawerBuilder()
@@ -56,7 +57,7 @@ public class Material_Drawer {
                             public void run() {
                                 activityLauncher(mPosition);
                             }
-                        }, 400);
+                        }, 300);
 
                         return false;
                     }
@@ -78,6 +79,7 @@ public class Material_Drawer {
                 mIntent = new Intent(mActivity, SitesActivity.class);
                 break;
             case 4: //DEFINITIONS
+                mIntent = new Intent(mActivity, DefinitionsActivity.class);
                 break;
             case 5: //ABOUT
                 break;
