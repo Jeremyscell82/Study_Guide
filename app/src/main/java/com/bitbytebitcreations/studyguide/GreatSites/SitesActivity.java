@@ -20,7 +20,6 @@ import com.bitbytebitcreations.studyguide.R;
 import com.mikepenz.materialdrawer.Drawer;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -45,6 +44,7 @@ public class SitesActivity extends AppCompatActivity {
     //TEMP VARIABLES
     List<String> siteUrls;
     List<Long> rowIds;
+    String siteUrl;
 
 
 
@@ -102,7 +102,7 @@ public class SitesActivity extends AppCompatActivity {
 
 
     //FRAGMENT CONTROLLER
-    public void fragController(String fragName, String itemSelected, long rowId){
+    public void fragController(String fragName, String itemName, long rowId){
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         Bundle bundle = new Bundle();
             switch (fragName){
@@ -113,7 +113,7 @@ public class SitesActivity extends AppCompatActivity {
                     break;
                 case "sites":
                     SitesList_Fragment siteFrag = new SitesList_Fragment().newInstance();
-                    bundle.putString("catName", itemSelected);
+                    bundle.putString("catName", itemName);
                     bundle.putLong("catId", rowId);
                     siteFrag.setArguments(bundle);
                     ft.setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left, R.animator.slide_in_left, R.animator.slide_out_right)
@@ -122,8 +122,10 @@ public class SitesActivity extends AppCompatActivity {
                             .commit();
                     break;
                 case "webview":
+                    //GET URL
                     WebView_Fragment webFrag = new WebView_Fragment().newInstance();
-                    bundle.putString("item", itemSelected);
+                    bundle.putString("siteName", itemName);
+                    bundle.putString("siteUrl", siteUrl);
                     webFrag.setArguments(bundle);
                     ft.setCustomAnimations(R.animator.fade_in, R.animator.slide_out_left, R.animator.slide_in_left, R.animator.fade_out).replace(R.id.main_container, webFrag)
                             .addToBackStack("")
@@ -134,18 +136,20 @@ public class SitesActivity extends AppCompatActivity {
 
 
     /* RECYCLER VIEW ON CLICK LISTENER FOR ALL FRAGMENTS */
-    public void recyclerOnClick(int key, String itemSelected, long rowId){
+    public void recyclerOnClick(int key, String itemName, long rowId, int position){
         //DETERMINE WHICH FRAGMENT BY KEY
         //0 = HOME, 1 = SITES
         switch (key){
             case 0: //IF ON CATEGORY
                 //LAUNCH SITES FRAGMENT
-                fragController(sites, itemSelected, rowId);
+                fragController(sites, itemName, rowId);
                 break;
             case 1: //IF ON SITES
+                //SET URL
+                siteUrl = siteUrls.get(position);
+                Log.i(TAG, "LAUNCH WEBVIEW...." + siteUrl);
                 //LAUNCH WEBVIEW FRAGMENT
-                Log.i(TAG, "LAUNCH WEBVIEW....");
-                fragController(web, itemSelected, rowId);
+                fragController(web, itemName, rowId);
                 break;
         }
     }
@@ -226,6 +230,7 @@ public class SitesActivity extends AppCompatActivity {
         if (masterList.size() > 0){
             List<String> list = new ArrayList<>();
             siteUrls = new ArrayList<>();
+            rowIds = new ArrayList<>();
             for (Entry_Object object : masterList){
                 //GET ONES THAT MATCH CATEGORY
                 if (object.catID == catID){
@@ -233,6 +238,7 @@ public class SitesActivity extends AppCompatActivity {
                     if (!object.entryName.equals("") && object.entryContent.startsWith("http")){
                         list.add(object.entryName);
                         siteUrls.add(object.entryContent);
+                        rowIds.add(object.rowID);
                     }
                 }
             }

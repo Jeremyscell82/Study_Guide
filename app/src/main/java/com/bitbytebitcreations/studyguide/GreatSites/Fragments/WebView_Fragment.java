@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,12 +14,10 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.bitbytebitcreations.studyguide.GreatSites.SitesActivity;
 import com.bitbytebitcreations.studyguide.R;
 import com.mikepenz.materialdrawer.Drawer;
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 /**
  * Created by JeremysMac on 1/17/17.
@@ -31,6 +28,8 @@ public class WebView_Fragment extends Fragment {
     ProgressBar progressBar;
     WebView webView;
     private String TAG = "WEBVIEW";
+    private String siteUrl;
+    private String siteName;
 
 
     public WebView_Fragment newInstance(){
@@ -46,9 +45,17 @@ public class WebView_Fragment extends Fragment {
         webView = (WebView) view.findViewById(R.id.webview);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar); //ALREADY VISIBLE
 
+        //GET BUNDLE
+        Bundle bundle = getArguments();
+        if (bundle != null){
+            siteName = bundle.getString("siteName");
+            siteUrl = bundle.getString("siteUrl");
+        }
+
+
         //SET UP TOOLBAR
         final SitesActivity activity = (SitesActivity) getActivity();
-        activity.setToolbarTitle("Webview testing");
+        activity.setToolbarTitle(siteName);
         //TOGGLE BACK ARROW
         activity.toggleBackArrow(true).setOnDrawerNavigationListener(new Drawer.OnDrawerNavigationListener() {
             @Override
@@ -63,7 +70,7 @@ public class WebView_Fragment extends Fragment {
 
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
-        webView.loadUrl("https://www.google.com");
+        webView.loadUrl(siteUrl);
         webView.setWebViewClient(new WebViewClient(){
             @Override
             public void onPageFinished(WebView view, String url) {

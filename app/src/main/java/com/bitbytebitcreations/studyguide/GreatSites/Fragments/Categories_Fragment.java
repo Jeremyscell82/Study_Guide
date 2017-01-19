@@ -87,7 +87,7 @@ public class Categories_Fragment extends Fragment {
 
     private void loadData(boolean refresh){
         SitesActivity activity = (SitesActivity) getActivity();
-        db_activity_name = activity.DB_ACTIVITY_NAME;
+        if (db_activity_name == null)db_activity_name = activity.DB_ACTIVITY_NAME;
         if (refresh)activity.loadSitesFromDB();
         //GET CAT LIST
         catNames = activity.getCategories();
@@ -97,23 +97,6 @@ public class Categories_Fragment extends Fragment {
     }
 
     /* DIALOGS */
-    //DISPLAY DIALOG LIST OF CATEGORIES TO UPDATE
-    private void updateCategoryDialog(){
-        new MaterialDialog.Builder(getActivity())
-                .title("List it")
-                .items(catNames)
-                .itemsCallback(new MaterialDialog.ListCallback() {
-                    @Override
-                    public void onSelection(MaterialDialog dialog, View itemView, int position, CharSequence text) {
-                        Log.i(TAG, "I WAS PRESSED: " + catNames.get(position));
-                        String title = getString(R.string.dialog_update_title)+" " + text.toString() +" "+getString(R.string.dialog_update_title2);
-                        rowID = catIds.get(position);
-                        addCategoryDialog(true, title, "", getString(R.string.dialog_update_posbutton));
-                    }
-                })
-                .show();
-    }
-
     //DISPLAY DIALOG FOR ADD/UPDATE CATEGORY
     public void addCategoryDialog(final boolean update, String title, String input, String posButton){
         new MaterialDialog.Builder(getActivity())
@@ -139,6 +122,25 @@ public class Categories_Fragment extends Fragment {
                 .show();
     }
 
+    //DISPLAY DIALOG LIST OF CATEGORIES TO UPDATE
+    private void updateCategoryDialog(){
+        new MaterialDialog.Builder(getActivity())
+                .title("List it")
+                .items(catNames)
+                .itemsCallback(new MaterialDialog.ListCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog dialog, View itemView, int position, CharSequence text) {
+                        Log.i(TAG, "I WAS PRESSED: " + catNames.get(position));
+                        String title = getString(R.string.dialog_update_title)+" " + text.toString() +" "+getString(R.string.dialog_update_title2);
+                        rowID = catIds.get(position);
+                        addCategoryDialog(true, title, "", getString(R.string.dialog_update_posbutton));
+                    }
+                })
+                .show();
+    }
+
+
+
 
 
 
@@ -152,11 +154,10 @@ public class Categories_Fragment extends Fragment {
         controller.addNewEntry(object); //AUTO CLOSES DB
 
         //UPDATE LOCAL DATA
-        updateAdapter();
-
-        SitesActivity activity = (SitesActivity) getActivity();
+        loadData(true);
 
         //NOW LAUNCH SITES LIST FRAGMENT INTO NEWLY CREATED CATEGORY
+        SitesActivity activity = (SitesActivity) getActivity();
         activity.fragController(activity.sites, catName, catIds.get(catIds.size()-1)); //ENSURE YOU OPEN A SITES FRAGMENT
 
     }
@@ -167,7 +168,7 @@ public class Categories_Fragment extends Fragment {
         DB_Controller controller = new DB_Controller();
         controller.DB_OPEN(getActivity());
         controller.updateEntry(rowID, object);
-        updateAdapter();
+        loadData(true);
     }
 
     //CREATE OBJECT
@@ -180,17 +181,17 @@ public class Categories_Fragment extends Fragment {
         return object;
     }
 
-    /* UPDATE UI */
-    //UPDATE ADAPTER AND UI
-    private void updateAdapter(){
-        SitesActivity activity = (SitesActivity) getActivity();
-        //REFRESH LIST
-        activity.loadSitesFromDB();
-        //UPDATE LOCAL VARIABLES AND RECYCLER VIEW
-        catNames = activity.getCategories();
-        catIds = activity.getRowIds();
-        adapter.updateAdapter(catNames, catIds);
-    }
+//    /* UPDATE UI */
+//    //UPDATE ADAPTER AND UI
+//    private void updateAdapter(){
+//        SitesActivity activity = (SitesActivity) getActivity();
+//        //REFRESH LIST
+//        activity.loadSitesFromDB();
+//        //UPDATE LOCAL VARIABLES AND RECYCLER VIEW
+//        catNames = activity.getCategories();
+//        catIds = activity.getRowIds();
+//        adapter.updateAdapter(catNames, catIds);
+//    }
 
 
 

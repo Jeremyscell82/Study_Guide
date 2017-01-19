@@ -99,7 +99,7 @@ public class Recycler_Adapter extends RecyclerView.Adapter<Recycler_Adapter.View
                     break;
                 case 2: //GREAT SITES
                     SitesActivity sites = (SitesActivity) context;
-                    sites.recyclerOnClick(keyBits[1], name.getText().toString(), rowId);
+                    sites.recyclerOnClick(keyBits[1], name.getText().toString(), rowId, getAdapterPosition());
                     break;
                 case 3: //DEFINITIONS
                     DefinitionsActivity definitions = (DefinitionsActivity) context;

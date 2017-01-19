@@ -37,9 +37,12 @@
     <string name="dialog_addsite_title">Give the site a name</string>
     <string name="dialog_addsite_title2">Now enter the URL/address</string>
     <!-- UPDATE DIALOGS -->
+    <string name="dialog_update_list_title">Which site would you like to edit?</string>
     <string name="dialog_update_title">Update</string>
     <string name="dialog_update_title2">to</string>
+    <string name="dialog_update_title3">Saved...\nWhat about the url?</string>
     <string name="dialog_update_posbutton">Update</string>
+    <string name="dialog_update_negbutton">Leave it</string>
 
     <!-- TOAST MESSAGES -->
     <string name="toast_invalid_url">The entered URL seems invalid, \nplease double check and try again</string>
