@@ -179,7 +179,15 @@ public class Definition_Fragment extends Fragment {
         //ADD TO DB
         DB_Controller controller = new DB_Controller();
         controller.DB_OPEN(getActivity());
-        controller.addNewEntry(object);
+        //CHECK WHETHER TO ADD OR UPDATE DEFINITION
+        if (rowId == -1){ //ROW ID WILL BE -1
+            //NEW ENTRY
+            controller.addNewEntry(object);
+        } else {
+            //EXISTING ENTRY
+            controller.updateEntry(rowId, object);
+        }
+
 
         //
     }

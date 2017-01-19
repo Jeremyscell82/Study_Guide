@@ -15,23 +15,10 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileSnapshotsToTreeSnapshotsIndex.bin" afterPath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileSnapshotsToTreeSnapshotsIndex.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/Definitions/DefinitionsActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/Definitions/DefinitionsActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/Definitions/Fragments/DefList_Fragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/Definitions/Fragments/DefList_Fragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/Definitions/Fragments/Definition_Fragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/Definitions/Fragments/Definition_Fragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/GreatSites/Fragments/SitesList_Fragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/GreatSites/Fragments/SitesList_Fragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/GreatSites/SitesActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/GreatSites/SitesActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/Utils/Material_Drawer.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/Utils/Material_Drawer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/Utils/Recycler_Adapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/Utils/Recycler_Adapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_definition.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_definition.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/menu/menu_search.xml" afterPath="$PROJECT_DIR$/app/src/main/res/menu/menu_search.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
     </list>
     <ignored path="Study_Guide.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -69,7 +56,7 @@
           <file leaf-file-name="DefinitionsActivity.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/Definitions/DefinitionsActivity.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="476">
+                <state relative-caret-position="1256">
                   <caret line="139" column="0" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="0" />
                   <folding>
                     <element signature="imports" expanded="true" />
@@ -86,18 +73,8 @@
           <file leaf-file-name="Material_Drawer.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/Utils/Material_Drawer.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="255">
+                <state relative-caret-position="-34">
                   <caret line="47" column="87" selection-start-line="47" selection-start-column="87" selection-end-line="47" selection-end-column="87" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/MainActivity.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="195">
-                  <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
                   <folding />
                 </state>
               </provider>
@@ -117,11 +94,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Definition_Fragment.java" pinned="false" current-in-tab="false">
+          <file leaf-file-name="Definition_Fragment.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/Definitions/Fragments/Definition_Fragment.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="551">
-                  <caret line="100" column="24" selection-start-line="100" selection-start-column="24" selection-end-line="100" selection-end-column="24" />
+                <state relative-caret-position="296">
+                  <caret line="171" column="49" selection-start-line="171" selection-start-column="49" selection-end-line="171" selection-end-column="49" />
                   <folding>
                     <element signature="e#3076#3248#0" expanded="true" />
                     <element signature="e#3247#3248#0" expanded="true" />
@@ -2096,9 +2073,9 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/Utils/Recycler_Adapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/Definitions/DefinitionsActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/Definitions/Fragments/DefList_Fragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/Definitions/Fragments/Definition_Fragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/Utils/Material_Drawer.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/Definitions/Fragments/Definition_Fragment.java" />
       </list>
     </option>
   </component>
@@ -3232,9 +3209,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/Utils/Material_Drawer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-34">
+          <caret line="47" column="87" selection-start-line="47" selection-start-column="87" selection-end-line="47" selection-end-column="87" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/Definitions/DefinitionsActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
+        <state relative-caret-position="1256">
           <caret line="139" column="0" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -3249,28 +3242,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/Definitions/Fragments/Definition_Fragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="551">
-          <caret line="100" column="24" selection-start-line="100" selection-start-column="24" selection-end-line="100" selection-end-column="24" />
+        <state relative-caret-position="296">
+          <caret line="171" column="49" selection-start-line="171" selection-start-column="49" selection-end-line="171" selection-end-column="49" />
           <folding>
             <element signature="e#3076#3248#0" expanded="true" />
             <element signature="e#3247#3248#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/Utils/Material_Drawer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="47" column="87" selection-start-line="47" selection-start-column="87" selection-end-line="47" selection-end-column="87" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/bitbytebitcreations/studyguide/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
