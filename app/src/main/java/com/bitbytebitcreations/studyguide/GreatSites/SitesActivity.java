@@ -106,14 +106,16 @@ public class SitesActivity extends AppCompatActivity {
             switch (fragName){
                 case "category":
                     Categories_Fragment catFrag = new Categories_Fragment().newInstance();
-                        ft.replace(R.id.main_container, catFrag)
+                        ft.setCustomAnimations(R.animator.slide_in_bottom, R.animator.slide_out_left)
+                                .replace(R.id.main_container, catFrag)
                                 .commit();
                     break;
                 case "sites":
                     SitesList_Fragment siteFrag = new SitesList_Fragment().newInstance();
                     bundle.putString("item", itemSelected);
                     siteFrag.setArguments(bundle);
-                    ft.replace(R.id.main_container, siteFrag)
+                    ft.setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left, R.animator.slide_in_left, R.animator.slide_out_right)
+                            .replace(R.id.main_container, siteFrag)
                             .addToBackStack("")
                             .commit();
                     break;
@@ -121,7 +123,7 @@ public class SitesActivity extends AppCompatActivity {
                     WebView_Fragment webFrag = new WebView_Fragment().newInstance();
                     bundle.putString("item", itemSelected);
                     webFrag.setArguments(bundle);
-                    ft.replace(R.id.main_container, webFrag)
+                    ft.setCustomAnimations(R.animator.fade_in, R.animator.slide_out_left, R.animator.slide_in_left, R.animator.fade_out).replace(R.id.main_container, webFrag)
                             .addToBackStack("")
                             .commit();
                     break;

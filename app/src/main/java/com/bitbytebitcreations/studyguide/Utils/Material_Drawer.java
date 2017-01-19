@@ -2,6 +2,7 @@ package com.bitbytebitcreations.studyguide.Utils;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
@@ -23,6 +24,7 @@ public class Material_Drawer {
 
     Activity mActivity;
     Drawer mDrawer;
+    int mPosition;
 
 
     public Drawer navDrawer(Activity activity, Toolbar toolbar){
@@ -46,7 +48,16 @@ public class Material_Drawer {
                 ).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        activityLauncher(position);
+                        mDrawer.closeDrawer();
+                        mPosition = position;
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                activityLauncher(mPosition);
+                            }
+                        }, 400);
+
                         return false;
                     }
                 })
