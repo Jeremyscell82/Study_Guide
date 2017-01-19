@@ -10,7 +10,14 @@
     <string name="add">ADD</string>
 
     <!-- MENU ITEMS -->
+    <string name="menu_next">Next</string>
     <string name="menu_add">Add</string>
+    <string name="menu_delete">Delete</string>
+    <string name="menu_editmode">EditMode</string>
+    <string name="menu_save">Save</string>
+    <string name="menu_flash">Create Flash Card</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_refresh">Refresh</string>
 
     <!-- NAV DRAWER -->
     <string-array name="nav_drawer_items">
@@ -32,5 +39,7 @@
     <!-- TOAST MESSAGES -->
     <string name="toast_invalid_url">The entered URL seems invalid, \nplease double check and try again</string>
 
+    <!-- ===========================GREAT SITES=========================== -->
 
+    <!-- ADD DIALOGS -->
 </resources>

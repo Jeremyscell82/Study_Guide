@@ -5,9 +5,14 @@
 
     <item
         android:id="@+id/action_refresh"
-        android:title="Refresh"
+        android:title="@string/menu_refresh"
         android:icon="@drawable/ic_action_refresh"
         app:showAsAction="always"
         />
 
+    <item
+        android:id="@+id/action_share"
+        android:title="@string/menu_share"
+        app:showAsAction="never"
+        />
 </menu>

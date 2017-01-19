@@ -70,9 +70,6 @@ public class SitesActivity extends AppCompatActivity {
         loadSitesFromDB();
 
 
-
-
-
     }
 
     /*SET TOOLBAR TITLE*/
@@ -95,7 +92,7 @@ public class SitesActivity extends AppCompatActivity {
     /* SET UP MENU */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
+        getMenuInflater().inflate(R.menu.main_sites, menu);
         return true;
     }
 

@@ -94,7 +94,5 @@ public class WebView_Fragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        //RESTORE VIEW TO DEFAULT
-        progressBar.setVisibility(View.VISIBLE);
     }
 }

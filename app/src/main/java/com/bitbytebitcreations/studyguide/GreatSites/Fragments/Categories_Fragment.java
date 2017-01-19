@@ -104,6 +104,7 @@ public class Categories_Fragment extends Fragment {
                 })
                 .positiveText(R.string.add)
                 .negativeText(R.string.cancel)
+                .cancelable(false)
                 .show();
     }
 

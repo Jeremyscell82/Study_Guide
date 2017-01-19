@@ -39,6 +39,7 @@ public class SitesList_Fragment extends Fragment {
     private String db_activity_name;
     List<String> siteList;
     List<String> urlList;
+    boolean isInEditMode = false;
 
 
 
@@ -142,6 +143,7 @@ public class SitesList_Fragment extends Fragment {
                 })
                 .positiveText(R.string.add)
                 .negativeText(R.string.cancel)
+                .cancelable(false)
                 .show();
     }
 

@@ -3,9 +3,14 @@ package com.bitbytebitcreations.studyguide.Definitions.Fragments;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -55,11 +60,33 @@ public class DefList_Fragment extends Fragment{
         myRecycler.setLayoutManager(llm);
         myRecycler.setAdapter(adapter);
 
+        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        fab.setVisibility(View.VISIBLE);
+
+        //CONTROL THE MENU
+        setHasOptionsMenu(true);
+
+
         //LOAD DATA
         loadData();
 
 
         return view;
+    }
+
+
+    /* MENU*/
+    @Override
+    public void onCreateOptionsMenu (Menu menu, MenuInflater inflater){
+        menu.clear();
+        inflater.inflate(R.menu.menu_search, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        Log.i(TAG, "SEARCH BUTTON PRESSED");
+        return super.onOptionsItemSelected(item);
     }
 
     //LOAD DATA

@@ -8,8 +8,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bitbytebitcreations.studyguide.Definitions.Fragments.DefList_Fragment;
 import com.bitbytebitcreations.studyguide.Definitions.Fragments.Definition_Fragment;
 import com.bitbytebitcreations.studyguide.GreatSites.SitesActivity;
@@ -58,7 +60,7 @@ public class DefinitionsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //ADD NEW DEFINITION DIALOG
-
+                recyclerOnClick(1, null);
             }
         });
 
@@ -82,12 +84,27 @@ public class DefinitionsActivity extends AppCompatActivity {
         }
     }
 
+    /* SET UP MENU */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_search, menu);
+        return true;
+    }
+
     /* RECYCLER VIEW ON CLICK LISTENER FOR ALL FRAGMENTS */
     public void recyclerOnClick(int key, String itemSelected){
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         Bundle bundle = new Bundle();
+        if (key == 1){
+            bundle.putBoolean("newEntry", true);
+        }
         Definition_Fragment fragment = new Definition_Fragment().newInstance();
-        ft.replace(R.id.main_container, fragment)
+        fragment.setArguments(bundle);
+        ft.setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left, R.animator.slide_in_left, R.animator.slide_out_right)
+                .replace(R.id.main_container, fragment)
+                .addToBackStack("")
                 .commit();
     }
+
+
 }
