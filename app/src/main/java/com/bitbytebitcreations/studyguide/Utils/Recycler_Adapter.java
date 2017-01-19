@@ -29,7 +29,7 @@ public class Recycler_Adapter extends RecyclerView.Adapter<Recycler_Adapter.View
     Context mContext;
     int[] mKeyBits = {0,0};
     List<String> names;
-
+    List<Long> rowIds;
 
 
 
@@ -37,10 +37,12 @@ public class Recycler_Adapter extends RecyclerView.Adapter<Recycler_Adapter.View
         this.mContext = activity;
         this.mKeyBits = bits;
         names = null;
+        rowIds = null;
     }
 
-    public void updateAdapter(List<String> updatedList){
+    public void updateAdapter(List<String> updatedList, List<Long> rowIdList){
         this.names = updatedList;
+        this.rowIds = rowIdList; //USED WITH GREAT SITES ACTIVITY
 //        Log.i(TAG, "UPDATE ADAPTER : " +  names.size());
         notifyDataSetChanged();
     }
@@ -59,6 +61,7 @@ public class Recycler_Adapter extends RecyclerView.Adapter<Recycler_Adapter.View
             holder.name.setText(names.get(position));
             holder.keyBits = mKeyBits;
             holder.context = mContext;
+            if (rowIds != null)holder.rowId = rowIds.get(position);
 //            if (names.get(position)[1] != null)holder.content = names.get(position)[1];
         }
     }
@@ -77,6 +80,7 @@ public class Recycler_Adapter extends RecyclerView.Adapter<Recycler_Adapter.View
         protected TextView name;
         Context context;
         int[] keyBits;
+        long rowId; //HOLDS THE CATEGORY ROW ID FOR 'GREAT SITES' ACTIVITY
 //        String content;
 
         public ViewHolder(View itemView) {
@@ -95,7 +99,7 @@ public class Recycler_Adapter extends RecyclerView.Adapter<Recycler_Adapter.View
                     break;
                 case 2: //GREAT SITES
                     SitesActivity sites = (SitesActivity) context;
-                    sites.recyclerOnClick(keyBits[1], name.getText().toString());
+                    sites.recyclerOnClick(keyBits[1], name.getText().toString(), rowId);
                     break;
                 case 3: //DEFINITIONS
                     DefinitionsActivity definitions = (DefinitionsActivity) context;

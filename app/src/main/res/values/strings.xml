@@ -3,6 +3,7 @@
     <string name="app_name">Study Guide</string>
     <string name="version">DEV_1</string>
     <string name="loading">Loading...</string>
+    <string name="sites_cat_kay">CATEGORY_KEY</string>
 
     <!-- DIALOG GENERIC -->
     <string name="ok">OK</string>
@@ -35,11 +36,15 @@
     <string name="dialog_addcat_title">Create a new category</string>
     <string name="dialog_addsite_title">Give the site a name</string>
     <string name="dialog_addsite_title2">Now enter the URL/address</string>
+    <!-- UPDATE DIALOGS -->
+    <string name="dialog_update_title">Update</string>
+    <string name="dialog_update_title2">to</string>
+    <string name="dialog_update_posbutton">Update</string>
 
     <!-- TOAST MESSAGES -->
     <string name="toast_invalid_url">The entered URL seems invalid, \nplease double check and try again</string>
 
-    <!-- ===========================GREAT SITES=========================== -->
+    <!-- =========================== TBA =========================== -->
 
     <!-- ADD DIALOGS -->
 </resources>

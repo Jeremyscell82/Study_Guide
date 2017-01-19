@@ -36,10 +36,10 @@ public class SitesList_Fragment extends Fragment {
     Recycler_Adapter adapter;
     private String siteName;
     private String category;
+    private long catID;
     private String db_activity_name;
     List<String> siteList;
     List<String> urlList;
-    boolean isInEditMode = false;
 
 
 
@@ -55,8 +55,8 @@ public class SitesList_Fragment extends Fragment {
         //GET BUNDLE PASSED IN
         Bundle bundle = getArguments();
         if (bundle != null){
-            String item = bundle.getString("item");
-            category = item;
+            category = bundle.getString("catName");
+            catID = bundle.getLong("catId");
         }
 
         //SET UP TOOLBAR
@@ -104,20 +104,20 @@ public class SitesList_Fragment extends Fragment {
     private void loadAdapter(){
         SitesActivity activity = (SitesActivity) getActivity();
         //GET LIST OF SITES
-        siteList = activity.getSites(category);
+        siteList = activity.getSites(catID);
         //GET LIST OF URLS
         urlList = activity.getURLs();
         //GET NAME OF ACTIVITY
         if (db_activity_name == null)db_activity_name = activity.DB_ACTIVITY_NAME;
         //UPDATE THE ADAPTER
-        adapter.updateAdapter(siteList);
+        adapter.updateAdapter(siteList, null);
     }
 
 
     public void addSiteDialog(final int round, String title, String input){
         new MaterialDialog.Builder(getActivity())
                 .title(title)
-                .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PERSON_NAME | InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE)
+                .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PERSON_NAME | InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE | InputType.TYPE_TEXT_FLAG_CAP_WORDS)
                 .input("",input, new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(MaterialDialog dialog, CharSequence input) {
@@ -125,7 +125,7 @@ public class SitesList_Fragment extends Fragment {
                             if (round == 0){
                                 //SITE NAME HAS BEEN ENTERED
                                 siteName = input.toString();
-                                addSiteDialog(1, getString(R.string.dialog_addsite_title2), "");
+                                addSiteDialog(1, getString(R.string.dialog_addsite_title2), "https://");
                             } else {
                                 //URL HAS BEEN ENTERED, CHECK IF ITS A PROPER FORMAT
                                 if (URLUtil.isValidUrl(input.toString())){
@@ -152,7 +152,7 @@ public class SitesList_Fragment extends Fragment {
         Entry_Object object = new Entry_Object();
         object.setEntryDate(new Date());
         object.setEntryActivity(db_activity_name);
-        object.setEntryCategory(category);
+        object.setCatID(catID);
         object.setEntryName(siteName);
         object.setEntryContent(url);
         //ADD TO DB

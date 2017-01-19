@@ -11,7 +11,7 @@ public class Entry_Object {
     public long rowID;
     public Date entryDate;
     public String entryActivity;
-    public String entryCategory; //DIRECTORY NAME, USER CREATED FOLDERS
+    public long catID; //DIRECTORY NAME, USER CREATED FOLDERS
     public String entryName = ""; //FLASH CARD = QUESTION / SITES = NAMES / DEFINITION = WORD OR PHRASE
     public String entryContent = ""; //FLASH CARD = ANSWER / SITES = URL / DEFINITION = DEFINITION
 
@@ -32,8 +32,8 @@ public class Entry_Object {
         this.entryActivity = value;
     }
 
-    public void setEntryCategory(String value){
-        this.entryCategory = value;
+    public void setCatID(long value){
+        this.catID = value;
     }
 
     public void setEntryName(String value){

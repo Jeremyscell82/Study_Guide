@@ -95,7 +95,7 @@ public class DefList_Fragment extends Fragment{
         db_activity_name = activity.DB_ACTIVITY_NAME;
         defList = new ArrayList<>();
         defList.add("Test");
-        adapter.updateAdapter(defList);
+        adapter.updateAdapter(defList, null);
     }
 
 

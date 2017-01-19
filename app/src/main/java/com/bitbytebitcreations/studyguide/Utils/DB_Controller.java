@@ -8,9 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import java.security.PublicKey;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by JeremysMac on 1/18/17.
@@ -91,6 +89,7 @@ public class DB_Controller extends AppCompatActivity{
         String where = COL_ID +"="+rowID;
         ContentValues values = entryValues(object);
         DB.update(TABLE_NAME, values, where, null);
+        DB_Helper.close();
     }
 
     //GET ALL DATA FOR ACTIVITY
@@ -106,8 +105,7 @@ public class DB_Controller extends AppCompatActivity{
                     object.setRowID(cursor.getLong(KEY_ID));
                     object.setEntryDate(cursor.getLong(KEY_DATE));
                     object.setEntryActivity(cursor.getString(KEY_ACTIVITY));
-                    Log.i(TAG, "ACTIVITY KEY IS: " + object.entryActivity+" test: " + _ActivityName);
-                    object.setEntryCategory(cursor.getString(KEY_CATEGORY));
+                    object.setCatID(cursor.getLong(KEY_CATEGORY)); //USES CATEGORY ROW ID TO LINK
                     object.setEntryName(cursor.getString(KEY_NAME));
                     object.setEntryContent(cursor.getString(KEY_CONTENT));
                     entryList.add(object);
@@ -124,7 +122,7 @@ public class DB_Controller extends AppCompatActivity{
         ContentValues values = new ContentValues();
         values.put(COL_DATE, object.entryDate.getTime());
         values.put(COL_ACTIVITY, object.entryActivity);
-        values.put(COL_CATEGORY, object.entryCategory);
+        values.put(COL_CATEGORY, object.catID);
         values.put(COL_NAME, object.entryName);
         values.put(COL_CONTENT, object.entryContent);
         return values;

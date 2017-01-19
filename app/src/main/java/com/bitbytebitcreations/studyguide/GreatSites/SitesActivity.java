@@ -33,15 +33,18 @@ public class SitesActivity extends AppCompatActivity {
 
     private final String TAG = "SITES_ACTIVITY";
     public final String DB_ACTIVITY_NAME = "sites";
-    public String cat = "category"; //USED FOR FRAGMENTS AND DATABASE NAME
+    //USED FOR FRAGMENTS
+    public String cat = "category";
     public String sites = "sites";
     public String web = "webview";
     Toolbar toolbar;
     Drawer drawer;
     ArrayList<Entry_Object> masterList;
     DB_Controller db;
-    List<String> siteUrls;
     ProgressDialog progressDialog;
+    //TEMP VARIABLES
+    List<String> siteUrls;
+    List<Long> rowIds;
 
 
 
@@ -64,7 +67,7 @@ public class SitesActivity extends AppCompatActivity {
         db = new DB_Controller();
 
         //LAUNCH FRAGMENT
-        fragController(cat, null);
+        fragController(cat, null, -1); //-1 == NULL
 
         //GET DATA FROM DB
         loadSitesFromDB();
@@ -99,7 +102,7 @@ public class SitesActivity extends AppCompatActivity {
 
 
     //FRAGMENT CONTROLLER
-    public void fragController(String fragName, String itemSelected){
+    public void fragController(String fragName, String itemSelected, long rowId){
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         Bundle bundle = new Bundle();
             switch (fragName){
@@ -110,7 +113,8 @@ public class SitesActivity extends AppCompatActivity {
                     break;
                 case "sites":
                     SitesList_Fragment siteFrag = new SitesList_Fragment().newInstance();
-                    bundle.putString("item", itemSelected);
+                    bundle.putString("catName", itemSelected);
+                    bundle.putLong("catId", rowId);
                     siteFrag.setArguments(bundle);
                     ft.setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left, R.animator.slide_in_left, R.animator.slide_out_right)
                             .replace(R.id.main_container, siteFrag)
@@ -130,18 +134,18 @@ public class SitesActivity extends AppCompatActivity {
 
 
     /* RECYCLER VIEW ON CLICK LISTENER FOR ALL FRAGMENTS */
-    public void recyclerOnClick(int key, String itemSelected){
+    public void recyclerOnClick(int key, String itemSelected, long rowId){
         //DETERMINE WHICH FRAGMENT BY KEY
         //0 = HOME, 1 = SITES
         switch (key){
             case 0: //IF ON CATEGORY
                 //LAUNCH SITES FRAGMENT
-                fragController(sites, itemSelected);
+                fragController(sites, itemSelected, rowId);
                 break;
             case 1: //IF ON SITES
                 //LAUNCH WEBVIEW FRAGMENT
                 Log.i(TAG, "LAUNCH WEBVIEW....");
-                fragController(web, itemSelected);
+                fragController(web, itemSelected, rowId);
                 break;
         }
     }
@@ -195,25 +199,36 @@ public class SitesActivity extends AppCompatActivity {
     public List<String> getCategories(){
         if (masterList.size() > 0){
             //USE HASHSET TO PREVENT DUPLICATES
-            HashSet list = new HashSet();
+//            HashSet list = new HashSet();
+            List<String> catList = new ArrayList<>();
+            rowIds = new ArrayList<>();
             for (Entry_Object object : masterList){
-                list.add(object.entryCategory);
+                if (object.catID == -1){
+                    //THIS IS THE CATEGORY ENTRY, GET THE ROW ID
+                    catList.add(object.entryName);
+                    rowIds.add(object.rowID);
+                    Log.i(TAG, "ROW ID FOR CATEGORY: " + object.rowID);
+                }
+
             }
             //CONVERT BACK TO LIST<STRING>
-            List<String> catList = new ArrayList<>();
-            catList.addAll(list);
+
+//            catList.addAll(list);
             return catList;
         }
         return null;
     }
+    public List<Long> getRowIds(){
+        return rowIds;
+    }
 
-    public List<String> getSites(String category){
+    public List<String> getSites(long catID){
         if (masterList.size() > 0){
             List<String> list = new ArrayList<>();
             siteUrls = new ArrayList<>();
             for (Entry_Object object : masterList){
                 //GET ONES THAT MATCH CATEGORY
-                if (object.entryCategory.equals(category)){
+                if (object.catID == catID){
                     //ENSURE THERE IS CONTENT...ENSURE ITS NOT THE CATEGORY NAME ROW
                     if (!object.entryName.equals("") && object.entryContent.startsWith("http")){
                         list.add(object.entryName);
