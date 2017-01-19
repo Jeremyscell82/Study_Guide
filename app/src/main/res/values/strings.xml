@@ -47,7 +47,9 @@
     <!-- TOAST MESSAGES -->
     <string name="toast_invalid_url">The entered URL seems invalid, \nplease double check and try again</string>
 
-    <!-- =========================== TBA =========================== -->
+    <!-- =========================== DEFINITIONS =========================== -->
+    <string name="definition_defname_hint">Definition name</string>
+    <string name="definition_def_hint">Definition goes here</string>
 
     <!-- ADD DIALOGS -->
 </resources>

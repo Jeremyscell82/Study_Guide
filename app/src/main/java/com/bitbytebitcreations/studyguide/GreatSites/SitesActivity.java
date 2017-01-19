@@ -69,8 +69,8 @@ public class SitesActivity extends AppCompatActivity {
         //LAUNCH FRAGMENT
         fragController(cat, null, -1); //-1 == NULL
 
-        //GET DATA FROM DB
-        loadSitesFromDB();
+//        //GET DATA FROM DB
+//        loadSitesFromDB();
 
 
     }

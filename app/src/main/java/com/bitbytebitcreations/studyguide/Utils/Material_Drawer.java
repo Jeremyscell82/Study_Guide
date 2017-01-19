@@ -42,10 +42,10 @@ public class Material_Drawer {
                 .withAccountHeader(header)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(navItems[0]), //HOME
-                        new PrimaryDrawerItem().withName(navItems[1]), //FLASH CARDS
+                        new PrimaryDrawerItem().withName(navItems[1]).withEnabled(false), //FLASH CARDS
                         new PrimaryDrawerItem().withName(navItems[2]), //GREAT SITES
                         new PrimaryDrawerItem().withName(navItems[3]), //DEFINITIONS
-                        new PrimaryDrawerItem().withName(navItems[4]) //ABOUT
+                        new PrimaryDrawerItem().withName(navItems[4]).withEnabled(false) //ABOUT
                 ).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {

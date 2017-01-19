@@ -151,7 +151,7 @@ public class SitesList_Fragment extends Fragment {
                                     //UPDATE TEMP URL
                                     url = input.toString();
                                     updateSite();
-                                    Toast.makeText(getActivity(), "Site url has been saved", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getActivity(), "Site has been updated", Toast.LENGTH_LONG).show();
                                 } else {/*NEW ENTRY*/
                                     //URL HAS BEEN ENTERED, CHECK IF ITS A PROPER FORMAT
                                     if (URLUtil.isValidUrl(input.toString())) {
@@ -159,6 +159,7 @@ public class SitesList_Fragment extends Fragment {
                                         url = input.toString();
                                         //SAVE DATA TO DB
                                         saveSite();
+                                        Toast.makeText(getActivity(), "Site has been saved", Toast.LENGTH_LONG).show();
                                     } else {
                                         //URL WAS NOT VALID
                                         Toast.makeText(getActivity(), getString(R.string.toast_invalid_url), Toast.LENGTH_LONG).show();
@@ -228,5 +229,5 @@ public class SitesList_Fragment extends Fragment {
         object.setEntryContent(url);
         return object;
     }
-    
+
 }

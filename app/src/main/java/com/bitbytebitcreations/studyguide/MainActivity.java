@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.bitbytebitcreations.studyguide.Utils.Material_Drawer;
 
@@ -24,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
         //SET UP NAV DRAWER
         new Material_Drawer().navDrawer(this, toolbar);
+
+        Toast.makeText(this, "Not much to see on this activity", Toast.LENGTH_LONG).show();
     }
 
 

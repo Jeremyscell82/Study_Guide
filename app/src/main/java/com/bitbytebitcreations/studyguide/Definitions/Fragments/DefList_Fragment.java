@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bitbytebitcreations.studyguide.Definitions.DefinitionsActivity;
-import com.bitbytebitcreations.studyguide.GreatSites.SitesActivity;
 import com.bitbytebitcreations.studyguide.R;
 import com.bitbytebitcreations.studyguide.Utils.Recycler_Adapter;
 
@@ -32,7 +31,9 @@ public class DefList_Fragment extends Fragment{
 
     private final String TAG = "DEFLIST_FRAGMENT";
     private String db_activity_name;
-    List<String> defList;
+    List<String> defNames;
+//    List<String> definitions;
+    List<Long> rowIds;
     Recycler_Adapter adapter;
 
     public DefList_Fragment newInstance(){
@@ -47,7 +48,7 @@ public class DefList_Fragment extends Fragment{
 
         //SET UP TOOLBAR
         DefinitionsActivity activity = (DefinitionsActivity) getActivity();
-        activity.setToolbarTitle("Definitions");
+//        activity.setToolbarTitle("Definitions");
         activity.toggleBackArrow(false); //THIS SHOULD NEVER REALLY BE NEEDED, BUT JUST IN CASE
 
 
@@ -92,11 +93,19 @@ public class DefList_Fragment extends Fragment{
     //LOAD DATA
     private void loadData(){
         DefinitionsActivity activity = (DefinitionsActivity) getActivity();
-        db_activity_name = activity.DB_ACTIVITY_NAME;
-        defList = new ArrayList<>();
-        defList.add("Test");
-        adapter.updateAdapter(defList, null);
+        if (db_activity_name == null)db_activity_name = activity.DB_ACTIVITY_NAME;
+        //REFRESH DEFINITIONS FROM DB
+        activity.loadDefinitionsFromDB();
+        //GET DEFINITIONS
+        defNames = activity.getDefNames();
+        rowIds = activity.getRowIds();
+//        definitions = activity.getDefinitions();
+        adapter.updateAdapter(defNames, rowIds);
     }
 
-
+    @Override
+    public void onViewStateRestored(Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        Log.i(TAG, "FRAGMENT HAS BEEN RESTORED");
+    }
 }

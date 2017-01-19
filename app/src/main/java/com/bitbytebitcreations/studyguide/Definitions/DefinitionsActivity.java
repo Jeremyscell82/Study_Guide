@@ -2,6 +2,7 @@ package com.bitbytebitcreations.studyguide.Definitions;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -16,9 +17,12 @@ import com.bitbytebitcreations.studyguide.Definitions.Fragments.DefList_Fragment
 import com.bitbytebitcreations.studyguide.Definitions.Fragments.Definition_Fragment;
 import com.bitbytebitcreations.studyguide.GreatSites.SitesActivity;
 import com.bitbytebitcreations.studyguide.R;
+import com.bitbytebitcreations.studyguide.Utils.DB_Controller;
+import com.bitbytebitcreations.studyguide.Utils.Entry_Object;
 import com.bitbytebitcreations.studyguide.Utils.Material_Drawer;
 import com.mikepenz.materialdrawer.Drawer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,6 +36,12 @@ public class DefinitionsActivity extends AppCompatActivity {
     Toolbar toolbar;
     Drawer drawer;
     FloatingActionButton mFab;
+    ProgressDialog progressDialog;
+    ArrayList<Entry_Object> masterList;
+    DB_Controller db;
+    List<String> defNames;
+    List<String> definitions;
+    List<Long> rowIds;
 
 
     @Override
@@ -42,7 +52,8 @@ public class DefinitionsActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
-        setToolbarTitle("Learning time");
+        toolbar.setTitle("Definition time!");
+//        setToolbarTitle("Definition time");
 
         //SET UP TOOLBAR
         drawer = new Material_Drawer().navDrawer(this, toolbar);
@@ -60,17 +71,23 @@ public class DefinitionsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //ADD NEW DEFINITION DIALOG
-                recyclerOnClick(1, null);
+                fragController(true, null, null, -1);
             }
         });
 
+        //INITIALIZE DB
+        masterList = new ArrayList<>();
+        db = new DB_Controller();
+
+        //LOAD DEFINITIONS FROM DB
+//        loadDefinitionsFromDB();
 
     }
 
     /*SET TOOLBAR TITLE*/
-    public void setToolbarTitle(String title){
-        toolbar.setTitle(title);
-    }
+//    public void setToolbarTitle(String title){
+//        toolbar.setTitle(title);
+//    }
 
     public Drawer toggleBackArrow(boolean display){
         if (display){
@@ -92,12 +109,35 @@ public class DefinitionsActivity extends AppCompatActivity {
     }
 
     /* RECYCLER VIEW ON CLICK LISTENER FOR ALL FRAGMENTS */
-    public void recyclerOnClick(int key, String itemSelected){
+    public void recyclerOnClick(boolean isItNew, int position){
+        //GET THE PROPER DATASET AND SEND TO FRAG CONTROLLER
+
+        //LOAD DEFINITIONS FRAGMENT
+        fragController(isItNew, defNames.get(position), definitions.get(position), rowIds.get(position));
+
+//        FragmentTransaction ft = getFragmentManager().beginTransaction();
+//        Bundle bundle = new Bundle();
+//        if (key == 1){
+//            bundle.putBoolean("newEntry", true);
+//        } else {
+//
+//        }
+//        Definition_Fragment fragment = new Definition_Fragment().newInstance();
+//        fragment.setArguments(bundle);
+//        ft.setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left, R.animator.slide_in_left, R.animator.slide_out_right)
+//                .replace(R.id.main_container, fragment)
+//                .addToBackStack("")
+//                .commit();
+    }
+
+    private void fragController(boolean editMode, String title, String content, long rowId){
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         Bundle bundle = new Bundle();
-        if (key == 1){
-            bundle.putBoolean("newEntry", true);
-        }
+        bundle.putBoolean("editMode", editMode);
+        bundle.putString("defName", title);
+        bundle.putString("definition", content);
+        bundle.putLong("rowId", rowId);
+        bundle.putString("activity_name", DB_ACTIVITY_NAME);
         Definition_Fragment fragment = new Definition_Fragment().newInstance();
         fragment.setArguments(bundle);
         ft.setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left, R.animator.slide_in_left, R.animator.slide_out_right)
@@ -107,4 +147,51 @@ public class DefinitionsActivity extends AppCompatActivity {
     }
 
 
+    /* ========================== DB CALLS ========================== */
+    private void displayProgressBar(boolean displayIt){
+        if (displayIt){
+            //SET UP PROGRESS DIALOG
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setMessage(getString(R.string.loading));
+            progressDialog.setCancelable(false);
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.show();
+        } else {
+            if (progressDialog != null){
+                progressDialog.dismiss();
+            }
+        }
+    }
+
+    public void loadDefinitionsFromDB(){
+        displayProgressBar(true);
+        //INITIALIZE DATABASE CONNECTION
+        db.DB_OPEN(this);
+        masterList = db.getActivityData(DB_ACTIVITY_NAME);
+        Log.i(TAG, "MASTER LIST SIZE: " + masterList.size());
+        displayProgressBar(false);
+    }
+
+    public List<String> getDefNames(){
+        if (masterList.size() > 0){
+            defNames = new ArrayList<>();
+            definitions = new ArrayList<>();
+            rowIds = new ArrayList<>();
+            for (Entry_Object object : masterList){
+                defNames.add(object.entryName);
+                definitions.add(object.entryContent);
+                rowIds.add(object.rowID);
+            }
+            return defNames;
+        }
+        return null;
+    }
+
+    public List<String> getDefinitions(){
+        return definitions;
+    }
+
+    public List<Long> getRowIds(){
+        return rowIds;
+    }
 }

@@ -103,7 +103,7 @@ public class Recycler_Adapter extends RecyclerView.Adapter<Recycler_Adapter.View
                     break;
                 case 3: //DEFINITIONS
                     DefinitionsActivity definitions = (DefinitionsActivity) context;
-                    definitions.recyclerOnClick(keyBits[1], name.getText().toString());
+                    definitions.recyclerOnClick(false, getAdapterPosition());
                     break;
                 case 4: //ABOUT
                     break;
