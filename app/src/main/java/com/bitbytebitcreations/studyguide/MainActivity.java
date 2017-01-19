@@ -1,5 +1,6 @@
 package com.bitbytebitcreations.studyguide;
 
+import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -26,10 +27,17 @@ public class MainActivity extends AppCompatActivity {
         //SET UP NAV DRAWER
         new Material_Drawer().navDrawer(this, toolbar);
 
-        Toast.makeText(this, "Not much to see on this activity", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Not much to see on this activity\nOpen the nav drawer and see the other activities", Toast.LENGTH_LONG).show();
+        launchPlaceholder();
     }
 
 
+    private void launchPlaceholder(){
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Placeholder_Fragment fragment = new Placeholder_Fragment();
+        ft.add(R.id.main_container, fragment)
+                .commit();
+    }
 
 
 }
