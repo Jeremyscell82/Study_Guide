@@ -186,7 +186,7 @@ public class Categories_Fragment extends Fragment {
 //    private void updateAdapter(){
 //        SitesActivity activity = (SitesActivity) getActivity();
 //        //REFRESH LIST
-//        activity.loadSitesFromDB();
+//        activity.loadFlashCardsFromDB();
 //        //UPDATE LOCAL VARIABLES AND RECYCLER VIEW
 //        catNames = activity.getCategories();
 //        catIds = activity.getRowIds();

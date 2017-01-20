@@ -70,7 +70,7 @@ public class SitesActivity extends AppCompatActivity {
         fragController(cat, null, -1); //-1 == NULL
 
 //        //GET DATA FROM DB
-//        loadSitesFromDB();
+//        loadFlashCardsFromDB();
 
 
     }
