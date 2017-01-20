@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.bitbytebitcreations.studyguide.Definitions.DefinitionsActivity;
+import com.bitbytebitcreations.studyguide.FlashCards.Flash_Activity;
 import com.bitbytebitcreations.studyguide.GreatSites.SitesActivity;
 import com.bitbytebitcreations.studyguide.MainActivity;
 import com.bitbytebitcreations.studyguide.R;
@@ -42,7 +43,7 @@ public class Material_Drawer {
                 .withAccountHeader(header)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(navItems[0]), //HOME
-                        new PrimaryDrawerItem().withName(navItems[1]).withEnabled(false), //FLASH CARDS
+                        new PrimaryDrawerItem().withName(navItems[1]), //FLASH CARDS
                         new PrimaryDrawerItem().withName(navItems[2]), //GREAT SITES
                         new PrimaryDrawerItem().withName(navItems[3]), //DEFINITIONS
                         new PrimaryDrawerItem().withName(navItems[4]).withEnabled(false) //ABOUT
@@ -74,6 +75,7 @@ public class Material_Drawer {
                 mIntent = new Intent(mActivity, MainActivity.class);
                 break;
             case 2: //FLASH CARDS
+                mIntent = new Intent(mActivity, Flash_Activity.class);
                 break;
             case 3: //GREAT SITES
                 mIntent = new Intent(mActivity, SitesActivity.class);
@@ -86,7 +88,10 @@ public class Material_Drawer {
         }
         if (mIntent != null){
             mDrawer.setSelectionAtPosition(-1);
+            mIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             mActivity.startActivity(mIntent);
+            mActivity.finish();
+
         }
 
     }

@@ -1,5 +1,8 @@
 package com.bitbytebitcreations.studyguide.Utils;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Date;
 
 /**
@@ -43,4 +46,6 @@ public class Entry_Object {
     public void setEntryContent(String value){
         this.entryContent = value;
     }
+
+
 }

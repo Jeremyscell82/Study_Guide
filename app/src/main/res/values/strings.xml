@@ -18,7 +18,10 @@
     <string name="menu_save">Save</string>
     <string name="menu_flash">Create Flash Card</string>
     <string name="menu_share">Share</string>
+    <string name="menu_orientation">Change Orientation</string>
     <string name="menu_refresh">Refresh</string>
+    <string name="menu_config">Config</string>
+    <string name="menu_timer">Change Timer</string>
 
     <!-- NAV DRAWER -->
     <string-array name="nav_drawer_items">
@@ -50,6 +53,12 @@
     <!-- =========================== DEFINITIONS =========================== -->
     <string name="definition_defname_hint">Definition name</string>
     <string name="definition_def_hint">Definition goes here</string>
+
+    <!-- =========================== FLASH CARDS =========================== -->
+    <string-array name="flashcard_button">
+        <item>ANSWER!</item>
+        <item>Next question</item>
+    </string-array>
 
     <!-- ADD DIALOGS -->
 </resources>

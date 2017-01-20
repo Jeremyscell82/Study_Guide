@@ -20,8 +20,23 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:title=""
-            />
+            app:title="ttt"
+            >
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                style="@style/font_blk_lrg_caps"
+                android:textColor="@color/md_white_1000"
+                android:gravity="center"
+                android:layout_marginEnd="@dimen/toolbar_margin"
+                android:layout_marginRight="@dimen/toolbar_margin"
+                android:layout_marginLeft="@dimen/toolbar_margin"
+                android:layout_marginStart="@dimen/toolbar_margin"
+                />
+
+        </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -39,6 +54,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         app:srcCompat="@drawable/ic_action_add"
+        app:backgroundTint="@color/colorPrimary"
         android:layout_margin="@dimen/fab"
         android:clickable="true"
         android:visibility="gone"

@@ -24,7 +24,6 @@ import com.bitbytebitcreations.studyguide.Utils.Entry_Object;
 import com.mikepenz.materialdrawer.Drawer;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by JeremysMac on 1/18/17.
@@ -125,7 +124,7 @@ public class Definition_Fragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id){
-            case R.id.menu_save:
+            case R.id.action_save:
                 //SEND NEW ENTRY TO DB
                 saveDefinition();
                 //DISABLE EDITMODE

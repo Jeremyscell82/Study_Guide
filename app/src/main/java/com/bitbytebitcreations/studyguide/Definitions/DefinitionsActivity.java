@@ -66,7 +66,7 @@ public class DefinitionsActivity extends AppCompatActivity {
 
         //ENABLE FLOATING ACTION BUTTON
         mFab = (FloatingActionButton) findViewById(R.id.fab);
-        mFab.setVisibility(View.VISIBLE);
+//        mFab.setVisibility(View.VISIBLE);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

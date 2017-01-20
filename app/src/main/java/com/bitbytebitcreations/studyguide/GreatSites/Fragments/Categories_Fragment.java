@@ -63,7 +63,7 @@ public class Categories_Fragment extends Fragment {
 
         setHasOptionsMenu(true);
 
-        loadData(false);
+        loadData();
 
         return view;
     }
@@ -85,10 +85,10 @@ public class Categories_Fragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    private void loadData(boolean refresh){
+    private void loadData(){
         SitesActivity activity = (SitesActivity) getActivity();
         if (db_activity_name == null)db_activity_name = activity.DB_ACTIVITY_NAME;
-        if (refresh)activity.loadSitesFromDB();
+        activity.loadSitesFromDB();
         //GET CAT LIST
         catNames = activity.getCategories();
         catIds = activity.getRowIds();
@@ -154,7 +154,7 @@ public class Categories_Fragment extends Fragment {
         controller.addNewEntry(object); //AUTO CLOSES DB
 
         //UPDATE LOCAL DATA
-        loadData(true);
+        loadData();
 
         //NOW LAUNCH SITES LIST FRAGMENT INTO NEWLY CREATED CATEGORY
         SitesActivity activity = (SitesActivity) getActivity();
@@ -168,7 +168,7 @@ public class Categories_Fragment extends Fragment {
         DB_Controller controller = new DB_Controller();
         controller.DB_OPEN(getActivity());
         controller.updateEntry(rowID, object);
-        loadData(true);
+        loadData();
     }
 
     //CREATE OBJECT

@@ -1,8 +1,10 @@
 package com.bitbytebitcreations.studyguide.GreatSites.Fragments;
 
 import android.app.Fragment;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -10,10 +12,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.RotateAnimation;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.bitbytebitcreations.studyguide.GreatSites.SitesActivity;
 import com.bitbytebitcreations.studyguide.R;
@@ -30,7 +36,8 @@ public class WebView_Fragment extends Fragment {
     private String TAG = "WEBVIEW";
     private String siteUrl;
     private String siteName;
-
+    boolean isInLandscape;
+    FrameLayout container;
 
     public WebView_Fragment newInstance(){
         return new WebView_Fragment();
@@ -44,7 +51,8 @@ public class WebView_Fragment extends Fragment {
         //SET UP UI
         webView = (WebView) view.findViewById(R.id.webview);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar); //ALREADY VISIBLE
-
+        isInLandscape = false;
+        container = (FrameLayout) getActivity().findViewById(R.id.main_container);
         //GET BUNDLE
         Bundle bundle = getArguments();
         if (bundle != null){
@@ -94,12 +102,23 @@ public class WebView_Fragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        webView.reload();
+        int id = item.getItemId();
+        switch (id){
+            case R.id.action_refresh:
+                webView.reload();
+                break;
+            case R.id.action_share:
+                break;
+        }
+
+
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        webView.destroy();
     }
 }
