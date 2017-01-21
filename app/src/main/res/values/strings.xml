@@ -13,6 +13,7 @@
     <!-- MENU ITEMS -->
     <string name="menu_next">Next</string>
     <string name="menu_add">Add</string>
+    <string name="menu_search">Search</string>
     <string name="menu_delete">Delete</string>
     <string name="menu_editmode">EditMode</string>
     <string name="menu_save">Save</string>

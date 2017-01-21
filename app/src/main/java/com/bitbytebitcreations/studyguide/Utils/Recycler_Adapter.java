@@ -12,6 +12,7 @@ import com.bitbytebitcreations.studyguide.Definitions.DefinitionsActivity;
 import com.bitbytebitcreations.studyguide.GreatSites.SitesActivity;
 import com.bitbytebitcreations.studyguide.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,8 +29,12 @@ public class Recycler_Adapter extends RecyclerView.Adapter<Recycler_Adapter.View
     private static final String TAG = "RECYCLER_ADAPTER";
     Context mContext;
     int[] mKeyBits = {0,0};
+    List<String[]> list;
+    List<String[]> placeholderList;
+//    List<String[]> filteredList;
     List<String> names;
     List<Long> rowIds;
+    boolean searchEnabled;
 
 
 
@@ -43,8 +48,41 @@ public class Recycler_Adapter extends RecyclerView.Adapter<Recycler_Adapter.View
     public void updateAdapter(List<String> updatedList, List<Long> rowIdList){
         this.names = updatedList;
         this.rowIds = rowIdList; //USED WITH GREAT SITES ACTIVITY
+        if (updatedList != null && rowIdList != null){
+            //CREATE ADAPTER LIST
+            list = new ArrayList<>();
+            for (int i =0; i < updatedList.size(); i++){
+                list.add(new String[]{updatedList.get(i), String.valueOf(rowIdList.get(i))});
+            }
+            Log.i(TAG, "NEW LIST IS POPULATED: " + list.size());
+        }
 //        Log.i(TAG, "UPDATE ADAPTER : " +  names.size());
         notifyDataSetChanged();
+    }
+
+    public void queryAdapter(boolean enableSearch, String query){
+        if (enableSearch && !query.equals("")){
+//            searchEnabled = true;
+            //ADD CURRENT LIST TO PLACEHOLDER
+            placeholderList = new ArrayList<>();
+            placeholderList = list;
+            //TEMP LIST
+            List<String[]> filteredList = new ArrayList<>();
+            for (String[] value : list){
+                if (value[0].toLowerCase().contains(query)){
+                    filteredList.add(value); //ADD NAME AND ID TO FILTERED LIST
+                }
+            }
+            //SET ADAPTER LIST TO NEW FILTERED LIST
+            list = filteredList;
+            //WHEN FOR LOOP COMPLETES, UPDATE ADAPTER
+            notifyDataSetChanged();
+        } else {
+//            searchEnabled = false;
+            //REPLACE LIST WITH ORIGINAL LIST
+            list = placeholderList;
+            notifyDataSetChanged();
+        }
     }
 
 
@@ -57,19 +95,22 @@ public class Recycler_Adapter extends RecyclerView.Adapter<Recycler_Adapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        if (names != null){
-            holder.name.setText(names.get(position));
+        if (list != null){
+//            holder.name.setText(names.get(position));
+//            if (rowIds != null)holder.rowId = rowIds.get(position);
+            holder.name.setText(list.get(position)[0]);
+            if (list.get(position)[1] != null)holder.rowId = Long.valueOf(list.get(position)[1]);
             holder.keyBits = mKeyBits;
             holder.context = mContext;
-            if (rowIds != null)holder.rowId = rowIds.get(position);
-//            if (names.get(position)[1] != null)holder.content = names.get(position)[1];
         }
+        //NEW VERSION OF ADAPTER
+
     }
 
     @Override
     public int getItemCount() {
-        if (names != null){
-            return names.size();
+        if (list != null){
+            return list.size();
         } else {
             return 0;
         }

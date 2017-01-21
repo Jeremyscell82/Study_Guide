@@ -4,8 +4,10 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,7 +29,7 @@ import java.util.List;
  * Created by JeremysMac on 1/18/17.
  */
 
-public class DefList_Fragment extends Fragment{
+public class DefList_Fragment extends Fragment implements SearchView.OnQueryTextListener {
 
     private final String TAG = "DEFLIST_FRAGMENT";
     private String db_activity_name;
@@ -35,6 +37,8 @@ public class DefList_Fragment extends Fragment{
 //    List<String> definitions;
     List<Long> rowIds;
     Recycler_Adapter adapter;
+    RecyclerView recycler;
+    DefinitionsActivity activity;
 
     public DefList_Fragment newInstance(){
         return new DefList_Fragment();
@@ -47,19 +51,19 @@ public class DefList_Fragment extends Fragment{
         View view = inflater.inflate(R.layout.fragment_recyclerview, container, false);
 
         //SET UP TOOLBAR
-        DefinitionsActivity activity = (DefinitionsActivity) getActivity();
+        activity = (DefinitionsActivity) getActivity();
 //        activity.setToolbarTitle("Definitions");
         activity.toggleBackArrow(false); //THIS SHOULD NEVER REALLY BE NEEDED, BUT JUST IN CASE
 
 
         //SET UP RECYCLER VIEW
-        RecyclerView myRecycler = (RecyclerView) view.findViewById(R.id.main_recyclerview);
+        recycler = (RecyclerView) view.findViewById(R.id.main_recyclerview);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         int[] keys = {3,0};
         adapter = new Recycler_Adapter(getActivity(), keys);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
-        myRecycler.setLayoutManager(llm);
-        myRecycler.setAdapter(adapter);
+        recycler.setLayoutManager(llm);
+        recycler.setAdapter(adapter);
 
         FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
         fab.setVisibility(View.VISIBLE);
@@ -81,14 +85,43 @@ public class DefList_Fragment extends Fragment{
     public void onCreateOptionsMenu (Menu menu, MenuInflater inflater){
         menu.clear();
         inflater.inflate(R.menu.menu_search, menu);
+        final MenuItem item = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+        searchView.setQueryHint(getString(R.string.menu_search));
+        searchView.setOnQueryTextListener(this);
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activity.setToolbarTitle("");
+            }
+        });
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                activity.setToolbarTitle("Definitions");
+                return false;
+            }
+        });
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        Log.i(TAG, "SEARCH BUTTON PRESSED");
+        //NO LONGER GETS TRIGGERED
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        Log.i(TAG, "QUERY HAS BEEN MADE..." + newText);
+        adapter.queryAdapter(true, newText);
+        return false;
+    }
+
 
     //LOAD DATA
     private void loadData(){
@@ -108,4 +141,6 @@ public class DefList_Fragment extends Fragment{
         super.onViewStateRestored(savedInstanceState);
         Log.i(TAG, "FRAGMENT HAS BEEN RESTORED");
     }
+
+
 }

@@ -88,9 +88,9 @@ public class DefinitionsActivity extends AppCompatActivity {
     }
 
     /*SET TOOLBAR TITLE*/
-//    public void setToolbarTitle(String title){
-//        toolbar.setTitle(title);
-//    }
+    public void setToolbarTitle(String title){
+        toolbarTitle.setText(title);
+    }
 
     public Drawer toggleBackArrow(boolean display){
         if (display){
