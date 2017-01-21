@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         //SET UP NAV DRAWER
         new Material_Drawer().navDrawer(this, toolbar);
 
-        Toast.makeText(this, "Not much to see on this activity\nOpen the nav drawer and see the other activities", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Home screen coming soon...\nor not. Who knows really?!", Toast.LENGTH_LONG).show();
         launchPlaceholder();
     }
 

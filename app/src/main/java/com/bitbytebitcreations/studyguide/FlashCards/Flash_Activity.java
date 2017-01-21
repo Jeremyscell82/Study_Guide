@@ -2,6 +2,8 @@ package com.bitbytebitcreations.studyguide.FlashCards;
 
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,6 +24,8 @@ import com.bitbytebitcreations.studyguide.Utils.Material_Drawer;
 import com.mikepenz.materialdrawer.Drawer;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 /**
  * Created by JeremysMac on 1/19/17.
@@ -37,7 +41,8 @@ public class Flash_Activity extends AppCompatActivity {
     int flashCardCount;
     FloatingActionButton mFab;
     ProgressDialog progressDialog;
-
+    final private String sharPref_KEY = "STUDY_GUIDE_FLASH_KEY";
+    final private String timer_KEY = "STUDY_FLASH_TIMER_KEY";
 
 
 
@@ -72,36 +77,53 @@ public class Flash_Activity extends AppCompatActivity {
             }
         });
 
-        //PULL FROM DATA BASE
-        loadFlashCardsFromDB();
+        //PULL FROM DATA BASE & SHUFFLE THE LIST
+        loadFlashCardsFromDB(true);
 
-        //SHUFFLE LIST
+        //SET THE COUNT OF ADDED FLASH CARDS AND THE CURRENT TIMER
+        int cardsAdded = 0;
+        if (masterList != null){
+            cardsAdded = masterList.size();
+        }
 
-        //SET UP VARIABLES
-        flashCardCount = 0;
-
-        //LOAD FRAGMENT
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        if (masterList.size() > 0){
-            //LOAD FLASH CARDS
-            Flash_Fragment fragment = new Flash_Fragment().newInstance();
+        //LOAD HOME FRAGMENT
+        if (cardsAdded != 0){
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            FlashHome_Fragment fragment = new FlashHome_Fragment();
             Bundle bundle = new Bundle();
-            bundle.putString("question", masterList.get(flashCardCount).entryName); //GET FIRST FROM LIST
-            bundle.putString("answer", masterList.get(flashCardCount).entryContent); //GET FIRST FROM LIST
+            bundle.putInt("count", cardsAdded);
+            bundle.putInt("timer", getTimerTime());
             fragment.setArguments(bundle);
             ft.add(R.id.main_container, fragment)
                     .commit();
         } else {
-            //NOTHING FOUND, THIS MUST BE YOUR FIRST TIME
             firstTimeAlert();
+            launchConfigFrag();
         }
+
+
+
+
+//        if (masterList.size() > 0){
+//            //LOAD FLASH CARDS
+//            Flash_Fragment fragment2 = new Flash_Fragment().newInstance();
+//            Bundle bundle2 = new Bundle();
+//            bundle2.putString("question", masterList.get(flashCardCount).entryName); //GET FIRST FROM LIST
+//            bundle2.putString("answer", masterList.get(flashCardCount).entryContent); //GET FIRST FROM LIST
+//            fragment2.setArguments(bundle2);
+//            ft.add(R.id.main_container, fragment2)
+//                    .commit();
+//        } else {
+//            //NOTHING FOUND, THIS MUST BE YOUR FIRST TIME
+//            firstTimeAlert();
+//        }
 
     }
 
     /* SET UP MENU */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_flash, menu);
+        getMenuInflater().inflate(R.menu.menu_flashhome, menu);
         return true;
     }
 
@@ -155,30 +177,52 @@ public class Flash_Activity extends AppCompatActivity {
                 })
                 .positiveText("Sure")
                 .cancelable(false)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        launchAddCardFrag(false, null, null, -1);
+                    }
+                })
                 .show();
+    }
+    /* FLASH CARD CALLS */
+    //LAUNCH FIRST FLASH CARD
+    public void loadFirstFlashCard(){
+        flashCardCount = 0;
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Flash_Fragment flash_fragment = new Flash_Fragment().newInstance();
+        Bundle bundle = new Bundle();
+        bundle.putString("question", masterList.get(flashCardCount).entryName);
+        bundle.putString("answer", masterList.get(flashCardCount).entryContent);
+        flash_fragment.setArguments(bundle);
+        ft.setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left, R.animator.slide_in_left, R.animator.slide_out_right)
+                .replace(R.id.main_container, flash_fragment)
+                .addToBackStack("")
+                .commit();
     }
 
     //LOAD NEXT FLASH CARD
     public void loadNextFlashCard(){
         flashCardCount++;
-        if (flashCardCount <= masterList.size()){
+        if (flashCardCount < masterList.size()){
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             Flash_Fragment flash_fragment = new Flash_Fragment().newInstance();
             Bundle bundle = new Bundle();
-            bundle.putString("question", "next question+ " + flashCardCount);
-            bundle.putString("answer", "next answer");
+            bundle.putString("question", masterList.get(flashCardCount).entryName);
+            bundle.putString("answer", masterList.get(flashCardCount).entryContent);
             flash_fragment.setArguments(bundle);
-            ft.setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left)
+            ft.setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left, R.animator.slide_in_left, R.animator.slide_out_right)
                     .replace(R.id.main_container, flash_fragment)
+                    .addToBackStack("")
                     .commit();
         } else {
             new MaterialDialog.Builder(this)
                     .title("That's all you wrote")
-                    .content("Repetition is the mother of learning.\nYou can add more by pressing the gear icon.\nRun it again?")
+                    .content("Repetition is the mother of learning.\n\nRun it again?")
                     .onPositive(new MaterialDialog.SingleButtonCallback() {
                         @Override
                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                            flashCardCount = 0;
+                            flashCardCount = -1;
                             loadNextFlashCard();
                         }
                     }).positiveText("Sure")
@@ -237,23 +281,45 @@ public class Flash_Activity extends AppCompatActivity {
             }
         }
     }
-    public void loadFlashCardsFromDB(){
+    public void loadFlashCardsFromDB(boolean shuffle){
         /*LOAD ALL DATA FOR THIS ACTIVITY*/
         displayProgressBar(true);
         //INIT DB
         db.DB_OPEN(this);
         masterList = db.getActivityData(DB_ACTIVITY_NAME);
-
+        //SHUFFLE FOR FLASH CARDS
+        Log.i(TAG, "MASTER LIST SIZE: " + masterList.size());
+        if (shuffle){
+            long seed = System.nanoTime();
+            Collections.shuffle(masterList, new Random(seed));
+        }
         Log.i(TAG, "MASTER LIST SIZE: " + masterList.size());
         displayProgressBar(false);
 
     }
 
 
+    /* ========================== SHARED PREFERENCE CALLS ========================== */
+    public void saveTimerTime(int newTime){
+        SharedPreferences sharedPreferences = getSharedPreferences(sharPref_KEY, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(timer_KEY, newTime);
+        editor.commit();
 
+    }
+    public int getTimerTime(){
+        SharedPreferences sharedPref = getSharedPreferences(sharPref_KEY, Context.MODE_PRIVATE);
+        return sharedPref.getInt(timer_KEY, 10000);
+    }
+
+
+
+    //LIFE CYCLE CALL BACK
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mFab.setVisibility(View.GONE);
+        int stackCount = getFragmentManager().getBackStackEntryCount();
+        Log.i(TAG, "STACK COUNT: " + stackCount);
     }
 }

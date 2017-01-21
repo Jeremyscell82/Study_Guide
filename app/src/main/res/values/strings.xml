@@ -35,8 +35,11 @@
 
 
     <!-- =========================== FLASH CARDS =========================== -->
+    <string name="flash_count">Flash card count:</string>
+    <string name="flash_timer">Timer set to</string>
+    <string name="flash_start">Let\'s Start</string>
     <string-array name="flashcard_button">
-        <item>ANSWER!</item>
+        <item>Show answer</item>
         <item>Next question</item>
     </string-array>
 

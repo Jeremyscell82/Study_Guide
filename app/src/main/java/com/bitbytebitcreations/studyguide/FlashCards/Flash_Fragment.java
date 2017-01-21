@@ -8,7 +8,11 @@ import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
@@ -17,7 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bitbytebitcreations.studyguide.R;
-import com.bitbytebitcreations.studyguide.Utils.Entry_Object;
+import com.mikepenz.materialdrawer.Drawer;
 
 /**
  * Created by JeremysMac on 1/19/17.
@@ -30,7 +34,7 @@ public class Flash_Fragment extends Fragment {
     View revealView;
     TextView flashText;
     CardView flashCard;
-    TextView toolbar;
+    TextView toolbarTitle;
     CountDownTimer timer;
     int isAnswerRevealed; //0 = FALSE, 1 = TRUE
     Button flashCardBttn;
@@ -38,6 +42,7 @@ public class Flash_Fragment extends Fragment {
     //CONTENT
     String question;
     String answer;
+    int time;
 
     public Flash_Fragment newInstance(){
         return new Flash_Fragment();
@@ -53,11 +58,22 @@ public class Flash_Fragment extends Fragment {
         isAnswerRevealed = 0;
         buttonText = getActivity().getResources().getStringArray(R.array.flashcard_button);
 
+        //CONFIGURE TOOLBAR
+        Flash_Activity activity = (Flash_Activity) getActivity();
+        time = activity.getTimerTime();
+        activity.toggleBackArrow(true).setOnDrawerNavigationListener(new Drawer.OnDrawerNavigationListener() {
+            @Override
+            public boolean onNavigationClickListener(View clickedView) {
+                getFragmentManager().popBackStack();
+                return true;
+            }
+        });
+
         //DECLARE THE UI
         flashCard = (CardView) view.findViewById(R.id.flashcard);
         revealView = (View) view.findViewById(R.id.revealView);
         flashText = (TextView) view.findViewById(R.id.flashcard_text);
-        toolbar = (TextView) getActivity().findViewById(R.id.toolbar_title);
+        toolbarTitle = (TextView) getActivity().findViewById(R.id.toolbar_title);
         flashCardBttn = (Button) view.findViewById(R.id.flashcard_button);
         flashCardBttn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,22 +101,46 @@ public class Flash_Fragment extends Fragment {
 
         StartTimer();
 
+        //REMOVE MENU
+        setHasOptionsMenu(true);
+
+
         return view;
     }
+
+    //REMOVE MENU
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.menu_flashcards, menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case R.id.action_home:
+                getFragmentManager().popBackStack(0,0);
+                getFragmentManager().popBackStack();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     private void setButtonText(){
         flashCardBttn.setText(buttonText[isAnswerRevealed]);
     }
+
     private void StartTimer(){
-        timer = new CountDownTimer(10000, 1000) {
+        timer = new CountDownTimer(time, 1000) {
             @Override
             public void onTick(long l) {
-                toolbar.setText(String.valueOf(l/1000)+" seconds");
+                toolbarTitle.setText(String.valueOf(l/1000)+" seconds");
             }
 
             @Override
             public void onFinish() {
-                toolbar.setText("Times up");
+                toolbarTitle.setText("Times up");
                 Toast.makeText(getActivity(), "DONE!!!!", Toast.LENGTH_LONG).show();
             }
         }.start();
@@ -156,10 +196,20 @@ public class Flash_Fragment extends Fragment {
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (timer != null){
+            timer.cancel();
+        }
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         if (timer != null){
             timer.start();
         }
     }
+
+
 }
