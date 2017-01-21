@@ -26,5 +26,29 @@
         <item name="android:fontFamily">sans-serif-smallcaps</item>
     </style>
 
+    <!-- TOOLBAR FONT -->
+    <style name="font_wht_med_caps">
+        <item name="android:textColor">@color/md_white_1000</item>
+        <item name="android:textSize">8pt</item>
+        <item name="android:fontFamily">sans-serif-smallcaps</item>
+    </style>
+
+    <style name="font_definition">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">@dimen/activity_margin</item>
+        <item name="android:textSize">8pt</item>
+        <item name="android:fontFamily">serif</item>
+        <item name="android:textColor">@color/md_black_1000</item>
+    </style>
+
+    <!-- SETTINGS FONT -->
+    <style name="font_settings">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">@dimen/activity_margin</item>
+        <item name="android:textSize">12pt</item>
+        <item name="android:fontFamily">sans-serif-smallcaps</item>
+        <item name="android:textColor">@color/md_black_1000</item>
+    </style>
+
 
 </resources>

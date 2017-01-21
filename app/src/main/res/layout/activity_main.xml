@@ -15,28 +15,28 @@
         android:theme="@style/AppTheme.AppBarOverlay"
         android:fitsSystemWindows="true">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:title="ttt"
             >
+
+        </android.support.v7.widget.Toolbar>
 
             <TextView
                 android:id="@+id/toolbar_title"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                style="@style/font_blk_lrg_caps"
-                android:textColor="@color/md_white_1000"
+                android:layout_height="?attr/actionBarSize"
+                style="@style/font_wht_med_caps"
                 android:gravity="center"
-                android:layout_marginEnd="@dimen/toolbar_margin"
-                android:layout_marginRight="@dimen/toolbar_margin"
-                android:layout_marginLeft="@dimen/toolbar_margin"
-                android:layout_marginStart="@dimen/toolbar_margin"
-                />
+                android:maxLength="20"/>
 
-        </android.support.v7.widget.Toolbar>
+        </RelativeLayout>
 
     </android.support.design.widget.AppBarLayout>
 

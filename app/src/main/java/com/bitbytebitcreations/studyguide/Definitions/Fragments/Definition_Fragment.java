@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.bitbytebitcreations.studyguide.Definitions.DefinitionsActivity;
 import com.bitbytebitcreations.studyguide.R;
@@ -37,7 +38,7 @@ public class Definition_Fragment extends Fragment {
     EditText defContentField;
     String defName;
     String definition;
-    long rowId;
+    long rowId = -1;
     boolean isInEditMode;
     Menu mMenu;
 
@@ -67,6 +68,7 @@ public class Definition_Fragment extends Fragment {
         activity.toggleBackArrow(true).setOnDrawerNavigationListener(new Drawer.OnDrawerNavigationListener() {
             @Override
             public boolean onNavigationClickListener(View clickedView) {
+                toggleKeyboard(false);
                 getFragmentManager().popBackStack();
                 return true;
             }
@@ -123,8 +125,11 @@ public class Definition_Fragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        DefinitionsActivity activity = (DefinitionsActivity) getActivity();
         switch (id){
             case R.id.action_save:
+                //DROP THE KEYBOARD
+                toggleKeyboard(false);
                 //SEND NEW ENTRY TO DB
                 saveDefinition();
                 //DISABLE EDITMODE
@@ -136,8 +141,16 @@ public class Definition_Fragment extends Fragment {
             case R.id.menu_flash:
                 break;
             case R.id.menu_share:
+                String title = "Check out the definition of "+defName;
+                String message = defName+",\n"+definition;
+                activity.shareLink(title, message);
                 break;
             case R.id.menu_delete:
+                if (rowId != -1){
+                    deleteDefinition();
+                } else {
+                    Toast.makeText(getActivity(), "Can't delete when its not saved", Toast.LENGTH_LONG).show();
+                }
                 break;
         }
         Log.i(TAG, "MENU PRESSED");
@@ -173,6 +186,15 @@ public class Definition_Fragment extends Fragment {
         }
     }
 
+    private void toggleKeyboard(boolean display){
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (display){
+            imm.showSoftInput(getActivity().getCurrentFocus(), WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        } else {
+            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+        }
+    }
+
     private void saveDefinition(){
         Entry_Object object = createObject();
         //ADD TO DB
@@ -192,16 +214,24 @@ public class Definition_Fragment extends Fragment {
     }
 
     private Entry_Object createObject(){
+        defName = defNameField.getText().toString();
+        definition = defContentField.getText().toString();
         Entry_Object object = new Entry_Object();
         if (rowId >= 0)object.setRowID(rowId);
         object.setEntryDate(new Date());
         object.setEntryActivity(db_activity_name);
         object.setCatID(-1);
-        object.setEntryName(defNameField.getText().toString());
-        object.setEntryContent(defContentField.getText().toString());
+        object.setEntryName(defName);
+        object.setEntryContent(definition);
         return object;
     }
 
+    private void deleteDefinition(){
+        DB_Controller controller = new DB_Controller();
+        controller.DB_OPEN(getActivity());
+        controller.deleteEntry(rowId, defName);
+        getFragmentManager().popBackStack();
+    }
 
 
 }

@@ -80,7 +80,8 @@ public class DB_Controller extends AppCompatActivity{
     //ADD NEW ENTRY
     public void addNewEntry(Entry_Object object){
         ContentValues values = entryValues(object);
-        DB.insert(TABLE_NAME, null, values);
+        long rowId = DB.insert(TABLE_NAME, null, values);
+        Log.i(TAG, "ROW ID IN CONTROLLER: " + rowId);
         DB_Helper.close();
     }
 
@@ -88,7 +89,8 @@ public class DB_Controller extends AppCompatActivity{
     public void updateEntry(long rowID, Entry_Object object){
         String where = COL_ID +"="+rowID;
         ContentValues values = entryValues(object);
-        DB.update(TABLE_NAME, values, where, null);
+        long deleted = DB.update(TABLE_NAME, values, where, null);
+        Log.i(TAG, "WAS IT DELETED: " + deleted);
         DB_Helper.close();
     }
 
@@ -114,6 +116,13 @@ public class DB_Controller extends AppCompatActivity{
             cursor.close();
         }
         return entryList;
+    }
+
+    //DELETE
+    public void deleteEntry(long rowID, String name){
+        String[] who = new String[]{String.valueOf(rowID),String.valueOf(name)};
+        DB.delete(TABLE_NAME,COL_ID+"=? and "+COL_NAME+"=?", who);
+        DB_Helper.close();
     }
 
 

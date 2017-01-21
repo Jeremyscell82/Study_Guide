@@ -3,6 +3,7 @@ package com.bitbytebitcreations.studyguide.Definitions;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bitbytebitcreations.studyguide.Definitions.Fragments.DefList_Fragment;
@@ -34,6 +36,7 @@ public class DefinitionsActivity extends AppCompatActivity {
     private final String TAG = "DEF_ACTIVITY";
     public final String DB_ACTIVITY_NAME = "definitions";
     Toolbar toolbar;
+    TextView toolbarTitle;
     Drawer drawer;
     FloatingActionButton mFab;
     ProgressDialog progressDialog;
@@ -52,8 +55,8 @@ public class DefinitionsActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
-        toolbar.setTitle("Definition time!");
-//        setToolbarTitle("Definition time");
+        toolbarTitle = (TextView) findViewById(R.id.toolbar_title);
+        toolbarTitle.setText("Definitions");
 
         //SET UP TOOLBAR
         drawer = new Material_Drawer().navDrawer(this, toolbar);
@@ -146,6 +149,13 @@ public class DefinitionsActivity extends AppCompatActivity {
                 .commit();
     }
 
+    public void shareLink(String name, String content){
+        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Check this site out called " + name);
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, content);
+        startActivity(Intent.createChooser(sharingIntent, "How would you like to send the site?"));
+    }
 
     /* ========================== DB CALLS ========================== */
     private void displayProgressBar(boolean displayIt){

@@ -11,6 +11,7 @@ import com.bitbytebitcreations.studyguide.FlashCards.Flash_Activity;
 import com.bitbytebitcreations.studyguide.GreatSites.SitesActivity;
 import com.bitbytebitcreations.studyguide.MainActivity;
 import com.bitbytebitcreations.studyguide.R;
+import com.bitbytebitcreations.studyguide.Settings.Settings_Activity;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -46,7 +47,7 @@ public class Material_Drawer {
                         new PrimaryDrawerItem().withName(navItems[1]), //FLASH CARDS
                         new PrimaryDrawerItem().withName(navItems[2]), //GREAT SITES
                         new PrimaryDrawerItem().withName(navItems[3]), //DEFINITIONS
-                        new PrimaryDrawerItem().withName(navItems[4]).withEnabled(false) //ABOUT
+                        new PrimaryDrawerItem().withName(navItems[4]) //SETTINGS
                 ).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
@@ -83,7 +84,11 @@ public class Material_Drawer {
             case 4: //DEFINITIONS
                 mIntent = new Intent(mActivity, DefinitionsActivity.class);
                 break;
-            case 5: //ABOUT
+            case 5: //SETTINGS
+                mIntent = new Intent(mActivity, Settings_Activity.class);
+                mDrawer.setSelectionAtPosition(-1);
+                mActivity.startActivity(mIntent);
+                mIntent = null;
                 break;
         }
         if (mIntent != null){

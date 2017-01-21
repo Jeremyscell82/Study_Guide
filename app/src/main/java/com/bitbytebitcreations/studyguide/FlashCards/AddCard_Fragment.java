@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,6 +15,8 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bitbytebitcreations.studyguide.R;
 import com.bitbytebitcreations.studyguide.Utils.DB_Controller;
@@ -49,8 +52,13 @@ public class AddCard_Fragment extends Fragment {
 
         //DECLARE UI
         defNameField = (EditText) view.findViewById(R.id.defition_name);
+        defNameField.setHint(getString(R.string.flashcard_name_hint));
         defContentField = (EditText) view.findViewById(R.id.definition_content);
+        defContentField.setHint(getString(R.string.flashcard_content_hint));
 
+        //SET UP TOOLBAR TITLE
+        TextView toolbarTitle = (TextView) activity.findViewById(R.id.toolbar_title);
+        toolbarTitle.setText("Flash Card Entry");
         //SET TOOLBAR BACK BUTTON
         activity.toggleBackArrow(true).setOnDrawerNavigationListener(new Drawer.OnDrawerNavigationListener() {
             @Override
@@ -76,10 +84,7 @@ public class AddCard_Fragment extends Fragment {
             defNameField.requestFocus();
         }
 
-        //
-        //CONFIGURE FLOATING ACTION BUTTON
-//        fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
-//        fab.setVisibility(View.GONE);
+        Log.i(TAG, "ROW ID ON CREATE: " + rowId);
 
         //SET MENU ITEMS
         setHasOptionsMenu(true);
@@ -112,7 +117,6 @@ public class AddCard_Fragment extends Fragment {
             case R.id.action_save:
                 //CLOSE KEYBOARD
                 toggleKeyboard(false);
-
                 //SAVE DATA
                 saveFlashCard();
 
@@ -120,6 +124,12 @@ public class AddCard_Fragment extends Fragment {
             case R.id.action_share:
                 break;
             case R.id.action_delete:
+                if (rowId != -1){
+                    //ITS NOT A NEW ENTRY
+                    deleteFlashCard();
+                } else {
+                    Toast.makeText(getActivity(), "Can't delete when its not saved", Toast.LENGTH_LONG).show();
+                }
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -150,6 +160,7 @@ public class AddCard_Fragment extends Fragment {
         //POP BACK STACK
         getFragmentManager().popBackStack();
     }
+
     private Entry_Object createObject(){
         Entry_Object object = new Entry_Object();
         if (rowId >= 0)object.setRowID(rowId);
@@ -159,6 +170,15 @@ public class AddCard_Fragment extends Fragment {
         object.setEntryName(defNameField.getText().toString());
         object.setEntryContent(defContentField.getText().toString());
         return object;
+    }
+
+    private void deleteFlashCard(){
+        DB_Controller controller = new DB_Controller();
+        controller.DB_OPEN(getActivity());
+        controller.deleteEntry(rowId, question);
+        Log.i(TAG, "ROW ID ON DELETE: " + rowId);
+
+        getFragmentManager().popBackStack();
     }
 
 }

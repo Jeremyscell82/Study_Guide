@@ -48,7 +48,8 @@ public class ConfigList_Fragment extends Fragment {
 
         //SET TOOLABR TITLE
         TextView toolbarTitle = (TextView) activity.findViewById(R.id.toolbar_title);
-        toolbarTitle.setText("Definitions");
+        toolbarTitle.setText("Flash Cards");
+
 
         //CONFIGURE TOOLBAR
         activity.toggleBackArrow(true).setOnDrawerNavigationListener(new Drawer.OnDrawerNavigationListener() {
@@ -85,14 +86,14 @@ public class ConfigList_Fragment extends Fragment {
         Log.i(TAG, "fab has been set up");
 
         //GET BUNDLE
-        Bundle bundle = getArguments();
-        if (bundle != null){
-            if (bundle.getBoolean("getMaster")){
-                Log.i(TAG, "WE HAVE DATA");
-//                masterList = activity.masterList;
-                loadData();
-            }
-        }
+//        Bundle bundle = getArguments();
+//        if (bundle != null){
+//            if (bundle.getBoolean("getMaster")){
+//                Log.i(TAG, "WE HAVE DATA");
+////                masterList = activity.masterList;
+//
+//            }
+//        }
 
         loadData();
 
@@ -134,5 +135,11 @@ public class ConfigList_Fragment extends Fragment {
         super.onDestroy();
         activity.toggleBackArrow(false);
         activity.toggleFab(false);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        loadData();
     }
 }

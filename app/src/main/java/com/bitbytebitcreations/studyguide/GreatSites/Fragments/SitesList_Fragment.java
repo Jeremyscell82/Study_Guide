@@ -86,7 +86,7 @@ public class SitesList_Fragment extends Fragment {
         setHasOptionsMenu(true);
 
         //LOAD DATA
-        loadData(false);
+        loadData();
 
         return view;
     }
@@ -101,16 +101,14 @@ public class SitesList_Fragment extends Fragment {
             case R.id.menu_edit:
                 updateCategoryDialog();
                 break;
-            case R.id.menu_delete:
-                break;
         }
         return super.onOptionsItemSelected(item);
     }
 
     //LOAD DATA
-    private void loadData(boolean refresh){
+    private void loadData(){
         SitesActivity activity = (SitesActivity) getActivity();
-        if (refresh)activity.loadSitesFromDB();
+        activity.loadSitesFromDB();
         //GET LIST OF SITES
         siteList = activity.getSites(catID);
         //GET LIST OF URLS
@@ -208,7 +206,7 @@ public class SitesList_Fragment extends Fragment {
         controller.DB_OPEN(getActivity());
         controller.addNewEntry(object); //AUTO CLOSES DB
         //UPDATE CURRENT ADAPTER
-        loadData(true);
+        loadData();
     }
 
     private void updateSite(){
@@ -217,7 +215,7 @@ public class SitesList_Fragment extends Fragment {
         DB_Controller controller = new DB_Controller();
         controller.DB_OPEN(getActivity());
         controller.updateEntry(rowId, object);
-        loadData(true);
+        loadData();
     }
 
     private Entry_Object createObject(){
@@ -229,5 +227,7 @@ public class SitesList_Fragment extends Fragment {
         object.setEntryContent(url);
         return object;
     }
+
+
 
 }

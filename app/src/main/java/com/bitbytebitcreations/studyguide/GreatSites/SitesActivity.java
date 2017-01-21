@@ -2,12 +2,14 @@ package com.bitbytebitcreations.studyguide.GreatSites;
 
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bitbytebitcreations.studyguide.GreatSites.Fragments.Categories_Fragment;
@@ -37,6 +39,7 @@ public class SitesActivity extends AppCompatActivity {
     public String sites = "sites";
     public String web = "webview";
     Toolbar toolbar;
+    TextView toolbarTitle;
     Drawer drawer;
     ArrayList<Entry_Object> masterList;
     DB_Controller db;
@@ -57,7 +60,8 @@ public class SitesActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");//REMOVE ACTIONBAR TITLE
-        setToolbarTitle("Welcome!!");
+        toolbarTitle = (TextView) findViewById(R.id.toolbar_title);
+        setToolbarTitle("Great Sites");
 
         //SET UP NAV DRAWER
         drawer = new Material_Drawer().navDrawer(this, toolbar);
@@ -77,7 +81,7 @@ public class SitesActivity extends AppCompatActivity {
 
     /*SET TOOLBAR TITLE*/
     public void setToolbarTitle(String title){
-        toolbar.setTitle(title);
+        toolbarTitle.setText(title);
     }
 
     public Drawer toggleBackArrow(boolean display){
@@ -126,6 +130,7 @@ public class SitesActivity extends AppCompatActivity {
                     WebView_Fragment webFrag = new WebView_Fragment().newInstance();
                     bundle.putString("siteName", itemName);
                     bundle.putString("siteUrl", siteUrl);
+                    bundle.putLong("rowId", rowId);
                     webFrag.setArguments(bundle);
                     ft.setCustomAnimations(R.animator.fade_in, R.animator.slide_out_left, R.animator.slide_in_left, R.animator.fade_out).replace(R.id.main_container, webFrag)
                             .addToBackStack("")
@@ -147,7 +152,8 @@ public class SitesActivity extends AppCompatActivity {
             case 1: //IF ON SITES
                 //SET URL
                 siteUrl = siteUrls.get(position);
-                Log.i(TAG, "LAUNCH WEBVIEW...." + siteUrl);
+                long aRowID = rowIds.get(position);
+                Log.i(TAG, "LAUNCH WEBVIEW...." + rowId + "OR A "+aRowID);
                 //LAUNCH WEBVIEW FRAGMENT
                 fragController(web, itemName, rowId);
                 break;
@@ -170,8 +176,9 @@ public class SitesActivity extends AppCompatActivity {
             }
         }
     }
+
+    /*LOAD ALL DATA FOR THIS ACTIVITY*/
     public void loadSitesFromDB(){
-        /*LOAD ALL DATA FOR THIS ACTIVITY*/
         displayProgressBar(true);
         //INIT DB
         db.DB_OPEN(this);
@@ -181,17 +188,27 @@ public class SitesActivity extends AppCompatActivity {
         displayProgressBar(false);
     }
 
+    /* ADD NEW ENTRY TO DB */
     public void addNewEntryToDB(Entry_Object entry){
-        /* ADD NEW ENTRY TO DB */
+
 
 
         //COMPLETED TOAST
         toastIt("Item saved");
     }
 
+    /* UPDATE EXISTING ENTRY IN DB */
     public void updateEntryInDB(){
-        /* UPDATE EXISTING ENTRY IN DB */
 
+
+    }
+
+    public void shareLink(String name, String content){
+        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Check this site out called " + name);
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, content);
+        startActivity(Intent.createChooser(sharingIntent, "How would you like to send the site?"));
     }
 
     private void toastIt(String message){

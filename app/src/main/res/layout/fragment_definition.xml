@@ -11,14 +11,20 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/activity_margin"
         >
-        <EditText
-            android:id="@+id/defition_name"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            style="@style/font_blk_lrg_caps"
-            android:layout_margin="@dimen/cardview_margin"
-            android:hint="@string/definition_defname_hint"/>
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/defition_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                style="@style/font_blk_lrg_caps"
+                android:layout_margin="@dimen/cardview_margin"
+                android:hint="@string/definition_defname_hint"
+                android:inputType="text|textCapSentences|textAutoCorrect|textAutoComplete"/>
+
+        </ScrollView>
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
@@ -27,13 +33,18 @@
         android:minHeight="200dp"
         android:layout_margin="@dimen/activity_margin">
 
-        <EditText
-            android:id="@+id/definition_content"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/font_blk_lrg_caps"
-            android:layout_margin="@dimen/cardview_margin"
-            android:hint="@string/definition_def_hint"/>
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/definition_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/font_definition"
+                android:layout_margin="@dimen/cardview_margin"
+                android:hint="@string/definition_def_hint"
+                android:inputType="text|textCapSentences|textAutoCorrect|textAutoComplete|textMultiLine|textImeMultiLine"/>
+        </ScrollView>
     </android.support.v7.widget.CardView>
 
 </LinearLayout>

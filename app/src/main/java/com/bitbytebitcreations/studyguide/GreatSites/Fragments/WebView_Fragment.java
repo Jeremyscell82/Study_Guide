@@ -1,10 +1,8 @@
 package com.bitbytebitcreations.studyguide.GreatSites.Fragments;
 
 import android.app.Fragment;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,17 +10,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
-import android.view.animation.RotateAnimation;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 
 import com.bitbytebitcreations.studyguide.GreatSites.SitesActivity;
 import com.bitbytebitcreations.studyguide.R;
+import com.bitbytebitcreations.studyguide.Utils.DB_Controller;
 import com.mikepenz.materialdrawer.Drawer;
 
 /**
@@ -36,6 +32,7 @@ public class WebView_Fragment extends Fragment {
     private String TAG = "WEBVIEW";
     private String siteUrl;
     private String siteName;
+    private long rowId = -1;
     boolean isInLandscape;
     FrameLayout container;
 
@@ -52,12 +49,13 @@ public class WebView_Fragment extends Fragment {
         webView = (WebView) view.findViewById(R.id.webview);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar); //ALREADY VISIBLE
         isInLandscape = false;
-        container = (FrameLayout) getActivity().findViewById(R.id.main_container);
+//        container = (FrameLayout) getActivity().findViewById(R.id.main_container);
         //GET BUNDLE
         Bundle bundle = getArguments();
         if (bundle != null){
             siteName = bundle.getString("siteName");
             siteUrl = bundle.getString("siteUrl");
+            rowId = bundle.getLong("rowId");
         }
 
 
@@ -97,7 +95,7 @@ public class WebView_Fragment extends Fragment {
     @Override
     public void onCreateOptionsMenu (Menu menu, MenuInflater inflater){
         menu.clear();
-        inflater.inflate(R.menu.menu_refresh, menu);
+        inflater.inflate(R.menu.menu_webview, menu);
     }
 
     @Override
@@ -108,13 +106,23 @@ public class WebView_Fragment extends Fragment {
                 webView.reload();
                 break;
             case R.id.action_share:
+                SitesActivity activity = (SitesActivity) getActivity();
+                activity.shareLink(siteName, siteUrl);
                 break;
+            case R.id.action_delete:
+                if (rowId != -1){
+                    deleteSite();
+                }
         }
-
-
         return super.onOptionsItemSelected(item);
     }
 
+    private void deleteSite(){
+        DB_Controller controller = new DB_Controller();
+        controller.DB_OPEN(getActivity());
+        controller.deleteEntry(rowId, siteName);
+        getFragmentManager().popBackStack();
+    }
 
     @Override
     public void onDestroyView() {

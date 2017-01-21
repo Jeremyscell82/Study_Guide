@@ -125,7 +125,7 @@ public class Categories_Fragment extends Fragment {
     //DISPLAY DIALOG LIST OF CATEGORIES TO UPDATE
     private void updateCategoryDialog(){
         new MaterialDialog.Builder(getActivity())
-                .title("List it")
+                .title("Choose a category to update")
                 .items(catNames)
                 .itemsCallback(new MaterialDialog.ListCallback() {
                     @Override
