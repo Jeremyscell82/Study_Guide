@@ -2,6 +2,8 @@ package com.bitbytebitcreations.studyguide.Definitions.Fragments;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -25,6 +27,7 @@ import com.bitbytebitcreations.studyguide.Utils.Entry_Object;
 import com.mikepenz.materialdrawer.Drawer;
 
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by JeremysMac on 1/18/17.
@@ -60,6 +63,11 @@ public class Definition_Fragment extends Fragment {
         defContentField = (EditText) view.findViewById(R.id.definition_content);
         defNameField.setEnabled(false);
         defContentField.setEnabled(false);
+
+        //SET CUSTOM FONT FOR DEFINITIONS
+        AssetManager am = getActivity().getApplicationContext().getAssets();
+        Typeface typeFace = Typeface.createFromAsset(am, String.format(Locale.US, "fonts/%s", "Roboto-Regular.ttf"));
+        defContentField.setTypeface(typeFace);
 
 
 
@@ -176,6 +184,7 @@ public class Definition_Fragment extends Fragment {
                 getActivity().getMenuInflater().inflate(R.menu.menu_save, mMenu);
             }
         } else {
+            isInEditMode = false;
             defNameField.setEnabled(false);
             defContentField.setEnabled(false);
             //DISABLE SAVE BUTTON

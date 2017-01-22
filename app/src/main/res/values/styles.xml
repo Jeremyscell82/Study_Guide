@@ -36,7 +36,7 @@
     <style name="font_definition">
         <item name="android:gravity">center</item>
         <item name="android:layout_margin">@dimen/activity_margin</item>
-        <item name="android:textSize">8pt</item>
+        <item name="android:textSize">10pt</item>
         <item name="android:fontFamily">serif</item>
         <item name="android:textColor">@color/md_black_1000</item>
     </style>

@@ -43,7 +43,8 @@
                 style="@style/font_definition"
                 android:layout_margin="@dimen/cardview_margin"
                 android:hint="@string/definition_def_hint"
-                android:inputType="text|textCapSentences|textAutoCorrect|textAutoComplete|textMultiLine|textImeMultiLine"/>
+                android:inputType="text|textCapSentences|textAutoCorrect|textAutoComplete|textMultiLine|textImeMultiLine"
+                android:gravity="left"/>
         </ScrollView>
     </android.support.v7.widget.CardView>
 

@@ -1,7 +1,7 @@
 <resources>
     <!-- APP GENERIC -->
     <string name="app_name">Study Guide</string>
-    <string name="version">DEV_3</string>
+    <string name="version">DEV_4.3</string>
     <string name="loading">Loading...</string>
     <string name="sites_cat_kay">CATEGORY_KEY</string>
 

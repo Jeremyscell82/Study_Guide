@@ -1,9 +1,10 @@
 package com.bitbytebitcreations.studyguide.Definitions;
 
-import android.app.Fragment;
+import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -14,10 +15,8 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.bitbytebitcreations.studyguide.Definitions.Fragments.DefList_Fragment;
 import com.bitbytebitcreations.studyguide.Definitions.Fragments.Definition_Fragment;
-import com.bitbytebitcreations.studyguide.GreatSites.SitesActivity;
 import com.bitbytebitcreations.studyguide.R;
 import com.bitbytebitcreations.studyguide.Utils.DB_Controller;
 import com.bitbytebitcreations.studyguide.Utils.Entry_Object;
@@ -40,17 +39,19 @@ public class DefinitionsActivity extends AppCompatActivity {
     Drawer drawer;
     FloatingActionButton mFab;
     ProgressDialog progressDialog;
-    ArrayList<Entry_Object> masterList;
+    List<Entry_Object> masterList;
     DB_Controller db;
     List<String> defNames;
     List<String> definitions;
     List<Long> rowIds;
+    public Activity defActivity;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -83,7 +84,9 @@ public class DefinitionsActivity extends AppCompatActivity {
         db = new DB_Controller();
 
         //LOAD DEFINITIONS FROM DB
-//        loadDefinitionsFromDB();
+//        initAsyncLoader();
+
+        defActivity = this;
 
     }
 
@@ -173,11 +176,12 @@ public class DefinitionsActivity extends AppCompatActivity {
         }
     }
 
-    public void loadDefinitionsFromDB(){
+    public void initAsyncLoader(){
         displayProgressBar(true);
         //INITIALIZE DATABASE CONNECTION
-        db.DB_OPEN(this);
+        db.DB_OPEN(defActivity);
         masterList = db.getActivityData(DB_ACTIVITY_NAME);
+        masterList = sortEntryObjects(masterList);
         Log.i(TAG, "MASTER LIST SIZE: " + masterList.size());
         displayProgressBar(false);
     }
@@ -204,4 +208,44 @@ public class DefinitionsActivity extends AppCompatActivity {
     public List<Long> getRowIds(){
         return rowIds;
     }
+
+    /* ==================================== ALGORITHMS ===================================== */
+
+    private List<Entry_Object> sortEntryObjects(List<Entry_Object> sortedList){
+//        ProgressDialog progressDialog = new ProgressDialog(this);
+//        progressDialog.setMessage("One sec...");
+//        progressDialog.show();
+        //SORT USING BUBBLE SORT
+        boolean swappedOne;
+//        List<Entry_Object> sortedList = master;
+        do {
+            swappedOne = false;
+            for (int i = 1; i < sortedList.size(); i++){
+                String left = sortedList.get(i-1).entryName;
+                String right = sortedList.get(i).entryName;
+                if (left.compareTo(right) >= 1){
+                    Log.i(TAG, "WE HAVE TWO THAT ARE NOT THE SAME: " +left + " && " + right);
+                    swappedOne = true;
+                    swapItems(sortedList, i-1, i); //SEND LEFT AND RIGHT INDEX INTs
+                }
+            }
+        } while (swappedOne);
+        return sortedList;
+//        progressDialog.dismiss();
+    }
+
+    private void swapItems(List<Entry_Object> list, int left, int right){
+        if (left != right){
+            Log.i(TAG, "LEFT IS: " + list.get(left).entryName);
+            Entry_Object tempObj = list.get(left);
+            list.set(left, list.get(right));
+            list.set(right, tempObj);
+            Log.i(TAG, "LEFT IS NOW: " + list.get(left).entryName);
+        } else {
+            Log.i(TAG, "AHHHH HERE IS WHERE I WENT WRONG");
+        }
+
+    }
+
+
 }

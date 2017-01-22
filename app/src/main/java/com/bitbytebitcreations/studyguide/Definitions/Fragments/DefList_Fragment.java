@@ -1,6 +1,7 @@
 package com.bitbytebitcreations.studyguide.Definitions.Fragments;
 
 import android.app.Fragment;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -18,6 +19,7 @@ import android.view.ViewGroup;
 
 import com.bitbytebitcreations.studyguide.Definitions.DefinitionsActivity;
 import com.bitbytebitcreations.studyguide.R;
+import com.bitbytebitcreations.studyguide.Utils.Entry_Object;
 import com.bitbytebitcreations.studyguide.Utils.Recycler_Adapter;
 
 import java.util.ArrayList;
@@ -128,7 +130,7 @@ public class DefList_Fragment extends Fragment implements SearchView.OnQueryText
         DefinitionsActivity activity = (DefinitionsActivity) getActivity();
         if (db_activity_name == null)db_activity_name = activity.DB_ACTIVITY_NAME;
         //REFRESH DEFINITIONS FROM DB
-        activity.loadDefinitionsFromDB();
+        activity.initAsyncLoader();
         //GET DEFINITIONS
         defNames = activity.getDefNames();
         rowIds = activity.getRowIds();
@@ -143,4 +145,22 @@ public class DefList_Fragment extends Fragment implements SearchView.OnQueryText
     }
 
 
+
+    /* PERSONAL ASYNC TASK FOR DEFINITIONS */
+    private class LoadFromDB extends AsyncTask<Object, Object, Void> {
+
+
+        @Override
+        protected Void doInBackground(Object... objects) {
+            List<Entry_Object> list = new ArrayList<>();
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+        }
+    }
 }

@@ -46,6 +46,7 @@ public class Recycler_Adapter extends RecyclerView.Adapter<Recycler_Adapter.View
     }
 
     public void updateAdapter(List<String> updatedList, List<Long> rowIdList){
+        Log.i(TAG, "ADAPTER IS BEING UPDATED");
         this.names = updatedList;
         this.rowIds = rowIdList; //USED WITH GREAT SITES ACTIVITY
         if (updatedList != null && rowIdList != null){
