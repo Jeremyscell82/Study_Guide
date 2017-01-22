@@ -26,6 +26,8 @@ import com.bitbytebitcreations.studyguide.Utils.DB_Controller;
 import com.bitbytebitcreations.studyguide.Utils.Entry_Object;
 import com.mikepenz.materialdrawer.Drawer;
 
+import org.apache.http.conn.scheme.HostNameResolver;
+
 import java.util.Date;
 import java.util.Locale;
 
@@ -58,7 +60,6 @@ public class Definition_Fragment extends Fragment {
         //SET INITIAL VALUES
         isInEditMode = false;
 
-
         defNameField = (EditText) view.findViewById(R.id.defition_name);
         defContentField = (EditText) view.findViewById(R.id.definition_content);
         defNameField.setEnabled(false);
@@ -68,8 +69,6 @@ public class Definition_Fragment extends Fragment {
         AssetManager am = getActivity().getApplicationContext().getAssets();
         Typeface typeFace = Typeface.createFromAsset(am, String.format(Locale.US, "fonts/%s", "Roboto-Regular.ttf"));
         defContentField.setTypeface(typeFace);
-
-
 
         //SET UP TOOLBAR
         DefinitionsActivity activity = (DefinitionsActivity) getActivity();
@@ -83,7 +82,7 @@ public class Definition_Fragment extends Fragment {
         });
 
         //REMOVE FAB
-        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        final FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
         fab.setVisibility(View.GONE);
 
         //SET UP MENU CONTROL
@@ -108,6 +107,14 @@ public class Definition_Fragment extends Fragment {
                 }, 400);
             } else {
                 setUI();
+                //IN CASE THE KEYBOARD IS UP FROM THE SEARCH QUERY
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        toggleKeyboard(false);
+                    }
+                }, 400);
             }
         }
 

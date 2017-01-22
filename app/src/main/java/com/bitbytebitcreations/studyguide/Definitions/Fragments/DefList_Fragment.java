@@ -134,8 +134,8 @@ public class DefList_Fragment extends Fragment implements SearchView.OnQueryText
         //GET DEFINITIONS
         defNames = activity.getDefNames();
         rowIds = activity.getRowIds();
-//        definitions = activity.getDefinitions();
-        adapter.updateAdapter(defNames, rowIds);
+        List<String> definitions = activity.getDefinitions();
+        adapter.updateAdapter(defNames, definitions, rowIds);
     }
 
     @Override

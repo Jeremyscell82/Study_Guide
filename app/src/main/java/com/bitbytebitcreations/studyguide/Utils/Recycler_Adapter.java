@@ -33,7 +33,8 @@ public class Recycler_Adapter extends RecyclerView.Adapter<Recycler_Adapter.View
     List<String[]> placeholderList;
 //    List<String[]> filteredList;
     List<String> names;
-    List<Long> rowIds;
+    List<String> definitions;
+    List<Long> rowIDs;
     boolean searchEnabled;
 
 
@@ -42,18 +43,23 @@ public class Recycler_Adapter extends RecyclerView.Adapter<Recycler_Adapter.View
         this.mContext = activity;
         this.mKeyBits = bits;
         names = null;
-        rowIds = null;
+        definitions = null;
     }
 
-    public void updateAdapter(List<String> updatedList, List<Long> rowIdList){
+    public void updateAdapter(List<String> updatedList, List<String> updatedDefList, List<Long> updatedRowIds){
         Log.i(TAG, "ADAPTER IS BEING UPDATED");
-        this.names = updatedList;
-        this.rowIds = rowIdList; //USED WITH GREAT SITES ACTIVITY
-        if (updatedList != null && rowIdList != null){
+//        this.names = updatedList;
+//        this.definitions = updatedDefList; //USED WITH GREAT SITES ACTIVITY
+//        this.rowIDs = updatedRowIds;
+        if (updatedList != null && updatedDefList != null){
             //CREATE ADAPTER LIST
             list = new ArrayList<>();
             for (int i =0; i < updatedList.size(); i++){
-                list.add(new String[]{updatedList.get(i), String.valueOf(rowIdList.get(i))});
+                list.add(new String[]{
+                        updatedList.get(i),
+                        updatedDefList.get(i),
+                        String.valueOf(updatedRowIds.get(i))
+                });
             }
             Log.i(TAG, "NEW LIST IS POPULATED: " + list.size());
         }
@@ -100,7 +106,8 @@ public class Recycler_Adapter extends RecyclerView.Adapter<Recycler_Adapter.View
 //            holder.name.setText(names.get(position));
 //            if (rowIds != null)holder.rowId = rowIds.get(position);
             holder.name.setText(list.get(position)[0]);
-            if (list.get(position)[1] != null)holder.rowId = Long.valueOf(list.get(position)[1]);
+            holder.definition = list.get(position)[1];
+            if (list.get(position)[2] != null)holder.rowId = Long.valueOf(list.get(position)[2]);
             holder.keyBits = mKeyBits;
             holder.context = mContext;
         }
@@ -119,10 +126,12 @@ public class Recycler_Adapter extends RecyclerView.Adapter<Recycler_Adapter.View
 
     protected static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        protected TextView name;
+        TextView name;
+        long rowId; //HOLDS THE CATEGORY ROW ID FOR 'GREAT SITES' ACTIVITY
+        String definition;
         Context context;
         int[] keyBits;
-        long rowId; //HOLDS THE CATEGORY ROW ID FOR 'GREAT SITES' ACTIVITY
+
 //        String content;
 
         public ViewHolder(View itemView) {
@@ -145,7 +154,8 @@ public class Recycler_Adapter extends RecyclerView.Adapter<Recycler_Adapter.View
                     break;
                 case 3: //DEFINITIONS
                     DefinitionsActivity definitions = (DefinitionsActivity) context;
-                    definitions.recyclerOnClick(false, getAdapterPosition());
+                    definitions.fragController(false, name.getText().toString(), definition, rowId);
+//                    definitions.recyclerOnClick(false, getAdapterPosition());
                     break;
                 case 4: //ABOUT
                     break;

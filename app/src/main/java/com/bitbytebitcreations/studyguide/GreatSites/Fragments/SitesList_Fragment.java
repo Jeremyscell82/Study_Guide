@@ -118,7 +118,7 @@ public class SitesList_Fragment extends Fragment {
         //GET NAME OF ACTIVITY
         if (db_activity_name == null)db_activity_name = activity.DB_ACTIVITY_NAME;
         //UPDATE THE ADAPTER
-        adapter.updateAdapter(siteList, rowIds);
+        adapter.updateAdapter(siteList, urlList, rowIds);
     }
 
     /* DIALOGS */

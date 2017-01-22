@@ -3,6 +3,7 @@ package com.bitbytebitcreations.studyguide.Definitions;
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.bitbytebitcreations.studyguide.Definitions.Fragments.DefList_Fragment;
@@ -136,7 +138,7 @@ public class DefinitionsActivity extends AppCompatActivity {
 //                .commit();
     }
 
-    private void fragController(boolean editMode, String title, String content, long rowId){
+    public void fragController(boolean editMode, String title, String content, long rowId){
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         Bundle bundle = new Bundle();
         bundle.putBoolean("editMode", editMode);
