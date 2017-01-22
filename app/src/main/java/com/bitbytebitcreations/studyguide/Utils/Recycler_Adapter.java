@@ -46,12 +46,9 @@ public class Recycler_Adapter extends RecyclerView.Adapter<Recycler_Adapter.View
         definitions = null;
     }
 
+    //DEFINITIONS UPDATE METHOD
     public void updateAdapter(List<String> updatedList, List<String> updatedDefList, List<Long> updatedRowIds){
-        Log.i(TAG, "ADAPTER IS BEING UPDATED");
-//        this.names = updatedList;
-//        this.definitions = updatedDefList; //USED WITH GREAT SITES ACTIVITY
-//        this.rowIDs = updatedRowIds;
-        if (updatedList != null && updatedDefList != null){
+        if (updatedList != null && updatedRowIds != null){
             //CREATE ADAPTER LIST
             list = new ArrayList<>();
             for (int i =0; i < updatedList.size(); i++){
@@ -61,9 +58,25 @@ public class Recycler_Adapter extends RecyclerView.Adapter<Recycler_Adapter.View
                         String.valueOf(updatedRowIds.get(i))
                 });
             }
+        }
+        notifyDataSetChanged();
+    }
+
+    //GREAT SITES UPDATE METHOD
+    public void updateAdapter(List<String> updatedList, List<Long> updatedRowIds){
+        Log.i(TAG, "ADAPTER IS BEING UPDATED");
+        if (updatedList != null && updatedRowIds != null){
+            //CREATE ADAPTER LIST
+            list = new ArrayList<>();
+            for (int i =0; i < updatedList.size(); i++){
+                list.add(new String[]{
+                        updatedList.get(i),
+                        null,
+                        String.valueOf(updatedRowIds.get(i))
+                });
+            }
             Log.i(TAG, "NEW LIST IS POPULATED: " + list.size());
         }
-//        Log.i(TAG, "UPDATE ADAPTER : " +  names.size());
         notifyDataSetChanged();
     }
 

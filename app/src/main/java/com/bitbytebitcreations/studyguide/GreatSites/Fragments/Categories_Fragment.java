@@ -93,7 +93,7 @@ public class Categories_Fragment extends Fragment {
         catNames = activity.getCategories();
         catIds = activity.getRowIds();
 
-        adapter.updateAdapter(catNames, null, catIds);
+        adapter.updateAdapter(catNames, catIds);
     }
 
     /* DIALOGS */

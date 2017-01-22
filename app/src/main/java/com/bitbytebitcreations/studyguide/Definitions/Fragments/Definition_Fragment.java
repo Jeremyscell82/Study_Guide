@@ -147,6 +147,8 @@ public class Definition_Fragment extends Fragment {
                 toggleKeyboard(false);
                 //SEND NEW ENTRY TO DB
                 saveDefinition();
+                //GO BACK TO THE LIST
+
                 //DISABLE EDITMODE
                 toggleEditMode(false);
                 break;
@@ -219,7 +221,7 @@ public class Definition_Fragment extends Fragment {
         //CHECK WHETHER TO ADD OR UPDATE DEFINITION
         if (rowId == -1){ //ROW ID WILL BE -1
             //NEW ENTRY
-            controller.addNewEntry(object);
+            rowId = controller.addNewEntry(object);
         } else {
             //EXISTING ENTRY
             controller.updateEntry(rowId, object);

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.bitbytebitcreations.studyguide.Definitions.DefinitionsActivity;
 import com.bitbytebitcreations.studyguide.FlashCards.Flash_Activity;
@@ -16,7 +17,9 @@ import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 /**
@@ -35,7 +38,7 @@ public class Material_Drawer {
         mActivity = activity;
         AccountHeader header = new AccountHeaderBuilder()
                 .withActivity(activity)
-                .withHeaderBackground(R.color.primary_dark)
+                .withHeaderBackground(R.drawable.nav_drawer_background).withHeaderBackgroundScaleType(ImageView.ScaleType.FIT_XY)
                 .build();
 
         mDrawer = new DrawerBuilder()
@@ -43,11 +46,13 @@ public class Material_Drawer {
                 .withToolbar(toolbar)
                 .withAccountHeader(header)
                 .addDrawerItems(
-                        new PrimaryDrawerItem().withName(navItems[0]), //HOME
-                        new PrimaryDrawerItem().withName(navItems[1]), //FLASH CARDS
-                        new PrimaryDrawerItem().withName(navItems[2]), //GREAT SITES
-                        new PrimaryDrawerItem().withName(navItems[3]), //DEFINITIONS
-                        new PrimaryDrawerItem().withName(navItems[4]) //SETTINGS
+                        new PrimaryDrawerItem().withName(navItems[0]).withIcon(R.drawable.ic_action_home_nav), //HOME
+                        new DividerDrawerItem(),
+                        new PrimaryDrawerItem().withName(navItems[1]).withIcon(R.drawable.ic_action_flashcard), //FLASH CARDS
+                        new PrimaryDrawerItem().withName(navItems[2]).withIcon(R.drawable.ic_action_greatsites), //GREAT SITES
+                        new PrimaryDrawerItem().withName(navItems[3]).withIcon(R.drawable.ic_action_definition), //DEFINITIONS
+                        new DividerDrawerItem(),
+                        new SecondaryDrawerItem().withName(navItems[4]).withIcon(R.drawable.ic_action_settings) //SETTINGS
                 ).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
@@ -65,6 +70,7 @@ public class Material_Drawer {
                     }
                 })
                 .withSelectedItem(-1)
+                .withSliderBackgroundColor(mActivity.getResources().getColor(R.color.background))
                 .build();
         return mDrawer;
     }
@@ -75,16 +81,16 @@ public class Material_Drawer {
             case 1: //HOME
                 mIntent = new Intent(mActivity, MainActivity.class);
                 break;
-            case 2: //FLASH CARDS
+            case 3: //FLASH CARDS
                 mIntent = new Intent(mActivity, Flash_Activity.class);
                 break;
-            case 3: //GREAT SITES
+            case 4: //GREAT SITES
                 mIntent = new Intent(mActivity, SitesActivity.class);
                 break;
-            case 4: //DEFINITIONS
+            case 5: //DEFINITIONS
                 mIntent = new Intent(mActivity, DefinitionsActivity.class);
                 break;
-            case 5: //SETTINGS
+            case 7: //SETTINGS
                 mIntent = new Intent(mActivity, Settings_Activity.class);
                 mDrawer.setSelectionAtPosition(-1);
                 mActivity.startActivity(mIntent);

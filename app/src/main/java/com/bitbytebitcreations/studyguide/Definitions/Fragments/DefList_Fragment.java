@@ -130,7 +130,7 @@ public class DefList_Fragment extends Fragment implements SearchView.OnQueryText
         DefinitionsActivity activity = (DefinitionsActivity) getActivity();
         if (db_activity_name == null)db_activity_name = activity.DB_ACTIVITY_NAME;
         //REFRESH DEFINITIONS FROM DB
-        activity.initAsyncLoader();
+        activity.loadDataFromDB();
         //GET DEFINITIONS
         defNames = activity.getDefNames();
         rowIds = activity.getRowIds();

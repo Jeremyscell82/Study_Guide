@@ -86,7 +86,7 @@ public class DefinitionsActivity extends AppCompatActivity {
         db = new DB_Controller();
 
         //LOAD DEFINITIONS FROM DB
-//        initAsyncLoader();
+//        loadDataFromDB();
 
         defActivity = this;
 
@@ -178,13 +178,12 @@ public class DefinitionsActivity extends AppCompatActivity {
         }
     }
 
-    public void initAsyncLoader(){
+    public void loadDataFromDB(){
         displayProgressBar(true);
         //INITIALIZE DATABASE CONNECTION
         db.DB_OPEN(defActivity);
         masterList = db.getActivityData(DB_ACTIVITY_NAME);
         masterList = sortEntryObjects(masterList);
-        Log.i(TAG, "MASTER LIST SIZE: " + masterList.size());
         displayProgressBar(false);
     }
 
@@ -214,9 +213,6 @@ public class DefinitionsActivity extends AppCompatActivity {
     /* ==================================== ALGORITHMS ===================================== */
 
     private List<Entry_Object> sortEntryObjects(List<Entry_Object> sortedList){
-//        ProgressDialog progressDialog = new ProgressDialog(this);
-//        progressDialog.setMessage("One sec...");
-//        progressDialog.show();
         //SORT USING BUBBLE SORT
         boolean swappedOne;
 //        List<Entry_Object> sortedList = master;
@@ -233,7 +229,6 @@ public class DefinitionsActivity extends AppCompatActivity {
             }
         } while (swappedOne);
         return sortedList;
-//        progressDialog.dismiss();
     }
 
     private void swapItems(List<Entry_Object> list, int left, int right){
@@ -243,8 +238,6 @@ public class DefinitionsActivity extends AppCompatActivity {
             list.set(left, list.get(right));
             list.set(right, tempObj);
             Log.i(TAG, "LEFT IS NOW: " + list.get(left).entryName);
-        } else {
-            Log.i(TAG, "AHHHH HERE IS WHERE I WENT WRONG");
         }
 
     }

@@ -78,11 +78,12 @@ public class DB_Controller extends AppCompatActivity{
     }
 
     //ADD NEW ENTRY
-    public void addNewEntry(Entry_Object object){
+    public long addNewEntry(Entry_Object object){
         ContentValues values = entryValues(object);
         long rowId = DB.insert(TABLE_NAME, null, values);
         Log.i(TAG, "ROW ID IN CONTROLLER: " + rowId);
         DB_Helper.close();
+        return rowId;
     }
 
     //UPDATE EXISTING ENTRY
