@@ -54,7 +54,7 @@ public class DefList_Fragment extends Fragment implements SearchView.OnQueryText
 
         //SET UP TOOLBAR
         activity = (DefinitionsActivity) getActivity();
-//        activity.setToolbarTitle("Definitions");
+        activity.setToolbarTitle("Definitions");
         activity.toggleBackArrow(false); //THIS SHOULD NEVER REALLY BE NEEDED, BUT JUST IN CASE
 
 

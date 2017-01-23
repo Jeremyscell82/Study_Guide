@@ -1,5 +1,6 @@
 package com.bitbytebitcreations.studyguide.FlashCards;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -46,7 +47,6 @@ public class AddCard_Fragment extends Fragment {
 
         //DECLARE ACTIVITY
         final Flash_Activity activity = (Flash_Activity) getActivity();
-
         //DECLARE ACTIVITY DB NAME
         db_activity_name = activity.DB_ACTIVITY_NAME;
 

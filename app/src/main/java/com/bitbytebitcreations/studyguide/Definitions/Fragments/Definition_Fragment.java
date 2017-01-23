@@ -6,8 +6,10 @@ import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,6 +22,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bitbytebitcreations.studyguide.Definitions.DefinitionsActivity;
 import com.bitbytebitcreations.studyguide.R;
 import com.bitbytebitcreations.studyguide.Utils.DB_Controller;
@@ -39,6 +42,7 @@ public class Definition_Fragment extends Fragment {
 
     private final String TAG = "DEFINITION_FRAG";
     private String db_activity_name;
+    private String db_activity_flashcard_name;
     EditText defNameField;
     EditText defContentField;
     String defName;
@@ -46,6 +50,8 @@ public class Definition_Fragment extends Fragment {
     long rowId = -1;
     boolean isInEditMode;
     Menu mMenu;
+    //FOR CREATE FLASH CARD, ACTIVITY ID
+
 
 
     public Definition_Fragment newInstance(){
@@ -59,6 +65,7 @@ public class Definition_Fragment extends Fragment {
 
         //SET INITIAL VALUES
         isInEditMode = false;
+        db_activity_flashcard_name = getString(R.string.db_activity_flash);
 
         defNameField = (EditText) view.findViewById(R.id.defition_name);
         defContentField = (EditText) view.findViewById(R.id.definition_content);
@@ -156,6 +163,10 @@ public class Definition_Fragment extends Fragment {
                 toggleEditMode(false);
                 break;
             case R.id.menu_flash:
+                //SHOW ALERT DIALOG ASKING FOR THE SHORT ANSWER
+                if (rowId != -1){
+                    makeFlashCardDialog();
+                }
                 break;
             case R.id.menu_share:
                 String title = "Check out the definition of "+defName;
@@ -209,9 +220,53 @@ public class Definition_Fragment extends Fragment {
         if (display){
             imm.showSoftInput(getActivity().getCurrentFocus(), WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         } else {
-            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            try {
+                imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
+
+    private void makeFlashCardDialog(){
+        final String title = "What is " + defNameField.getText().toString() + "?";
+        String message = "Enter your version of the answer";
+        new MaterialDialog.Builder(getActivity())
+                .title(title)
+                .content(message)
+                .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PERSON_NAME | InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES)
+                .input("", "", new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
+                        if (input != null && input.length() > 0){
+                            createFlashCard(title, input.toString());
+                        }
+                    }
+                })
+                .positiveText("Create")
+                .negativeText("Cancel")
+                .cancelable(false)
+                .show();
+
+    }
+
+    private void createFlashCard(String question, String answer){
+        //CREATE ACTIVITY INSTANCE
+        //CREATE THE OBJECT
+        Entry_Object object = new Entry_Object();
+        object.setEntryDate(new Date());
+        object.setEntryActivity(db_activity_flashcard_name);
+        object.setCatID(-1);
+        object.setEntryName(question);
+        object.setEntryContent(answer);
+
+        //INIT CONNECTION WITH DB AND ADD OBEJCT
+        DB_Controller controller = new DB_Controller();
+        controller.DB_OPEN(getActivity());
+        controller.addNewEntry(object);
+
+    }
+
 
     private void saveDefinition(){
         Entry_Object object = createObject();

@@ -34,7 +34,7 @@ import java.util.Random;
 public class Flash_Activity extends AppCompatActivity {
 
     private final String TAG = "FLASH_ACTIVITY";
-    public final String DB_ACTIVITY_NAME = "flash";
+    public String DB_ACTIVITY_NAME;
     public ArrayList<Entry_Object> masterList;
     DB_Controller db;
     Drawer drawer;
@@ -63,6 +63,7 @@ public class Flash_Activity extends AppCompatActivity {
         //INITIALIZE DB
         masterList = new ArrayList<>();
         db = new DB_Controller();
+        DB_ACTIVITY_NAME = getString(R.string.db_activity_flash);
 
         //SET UP FAB
         mFab = (FloatingActionButton) findViewById(R.id.fab);

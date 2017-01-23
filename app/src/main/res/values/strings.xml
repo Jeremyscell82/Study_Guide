@@ -1,9 +1,13 @@
 <resources>
     <!-- APP GENERIC -->
     <string name="app_name">Study Guide</string>
-    <string name="version">DEV_4.5</string>
+    <string name="version">DEV_4.6</string>
     <string name="loading">Loading...</string>
     <string name="sites_cat_kay">CATEGORY_KEY</string>
+
+    <!-- DATABASE ACTIVITY KEYS -->
+    <string name="db_activity_flash">flash</string>
+
 
     <!-- DIALOG GENERIC -->
     <string name="ok">OK</string>
